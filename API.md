@@ -1,4 +1,5 @@
 # API
+Publisher向け各種APIの仕様を記載致します。
 
 ## Version
 0.9
