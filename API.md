@@ -10,7 +10,7 @@ AdColony配信実績取得用 API仕様書
 * 枠一覧取得 ※1
 * メディアレポート取得 ※1
 
-※1: OAuth2.0による認証が必要なAPIです
+※1: ログインが必要なAPIです
 
 それぞれのAPIの詳細仕様は3.以降をご参照ください
 
@@ -18,8 +18,9 @@ AdColony配信実績取得用 API仕様書
 
 ### 2.1. リクエスト
 - パラメータの日本語はUTF-8でエンコーディングする必要があります。
-- OAuth2.0認証が必要なAPIについて、セッションの有効期限切れもしくはサーバ側のセッションデータが削除されたあとに各APIにアクセスした場合は、認証エラー(HTTP 403)が返答されます。
-- 認証エラーが起きた場合はOAuth2.0認証によりアクセストークンを再取得してください。
+- ログインセッションはCookieにより管理されているので、APIを叩く際はクライアント側でCookieを保持してください
+- ログインが必要なAPIについて、セッションの有効期限切れもしくはサーバ側のセッションデータが削除されたあとに各APIにアクセスした場合は、認証エラー(HTTP 403)が返答されます。
+- 認証エラーが起きた場合はログインしなおしてください
 
 ### 2.2. レスポンス
 HTTP Response BodyはJSON形式となります。
@@ -68,7 +69,58 @@ HTTP Status Codeは以下を意味します
 
 ## 3. API 詳細仕様
 
-### 3.1. アプリ一覧取得
+### 3.1. ログイン
+URL: https://adcolony.glossom.jp/api/v1/users/sign_in
+
+ログインユーザーの情報とクッキーが取得できます。
+
+#### リクエストパラメータ
+
+##### user[email]
+ユーザーのメールアドレス
+
+##### user[password]
+ユーザーのパスワード
+
+##### リクエスト例
+
+https://adcolony.glossom.jp/api/v1/users/sign_in?user[email]=hoge@example.com&user[password]=PASS
+
+#### レスポンス
+
+アカウント情報がJSONで返ります。
+
+```
+{
+  "id":1,
+  "name":"hoge",
+  "account_id":1,
+  "status":1,
+  "created_at":"2015-03-05T08:11:57.000Z",
+  "updated_at":"2015-04-07T10:29:02.990Z",
+  "email":"hoge@example.com",
+  "password_set_by_admin":null
+}
+```
+
+### 3.2. ログアウト
+URL: https://adcolony.glossom.jp/api/v1/users/sign_out
+
+DELETEでリクエストしてください。
+
+#### リクエストパラメータ
+
+特になし
+
+##### リクエスト例
+
+https://adcolony.glossom.jp/api/v1/users/sign_out
+
+#### レスポンス
+
+特になし
+
+### 3.3. アプリ一覧取得
 URL: https://adcolony.glossom.jp/api/v1/apps
 
 メディアの持つアプリ一覧が取得できます。
@@ -106,7 +158,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 3.2. 枠一覧取得
+### 3.4. 枠一覧取得
 URL: https://adcolony.glossom.jp/api/v1/zones
 
 #### リクエストパラメータ
@@ -142,7 +194,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 3.3. メディアレポート取得
+### 3.5. メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
@@ -151,10 +203,12 @@ URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 すべてGETで指定してください。
 
-##### start_date
-yyyy-mm-ddの日付形式 例 2015-05-01
+##### month
+* yyyy/mmの日付形式 例 2015/05
+* yyyy/mm/ddの日付形式 例 2015/05/01 ※ ddは解釈されません
+* yyyy-mm-ddの日付形式 例 2015-05-01 ※ ddは解釈されません
 
-取得したい対象月の月初が入ります。
+取得したい対象月を指定します。
 
 ##### app_id
 INT型
@@ -172,7 +226,7 @@ INT型
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/publisher/reports?start_date=2015-05-01&zone_id=1
+https://adcolony.glossom.jp/api/v1/publisher/reports?month=2015-05-01&zone_id=1
 
 #### レスポンス
 
