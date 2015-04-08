@@ -19,7 +19,7 @@ AdColony配信実績取得用 API仕様書
 ### 2.1. リクエスト
 - パラメータの日本語はUTF-8でエンコーディングする必要があります。
 - ログインセッションはCookieにより管理されているので、APIを叩く際はクライアント側でCookieを保持してください
-- Cookieの期限はブラウザのセッションの終了時です
+- Cookieの期限は設定していません
 - ログインが必要なAPIについて、セッションの有効期限切れもしくはサーバ側のセッションデータが削除されたあとに各APIにアクセスした場合は、認証エラー(HTTP 403)が返答されます。
 - 認証エラーが起きた場合はログインしなおしてください
 
@@ -237,32 +237,32 @@ jsonのsampleとデータ型に対する説明です。
 
 ```
 {
-  2014-12-31: {
-    earnings_yen: "8.14",
-    requests: 172,
-    impressions: 175,
-    cvvs: 147,
-    clicks: 1,
-    fill_rate: "101.74",
-    ecpm: "55.38"
+  "2014-12-31": {            # 発生した日付 yyyy-mm-dd のDate型
+    "earnings_yen": "8.14",  # 収益(円) Float型
+    "requests": 172,         # 広告リクエスト数 INT型
+    "impressions": 175,      # 広告表示回数 INT型
+    "cvvs": 147,             # 動画視聴完了数 INT型
+    "clicks": 1,             # クリック数 INT型
+    "fill_rate": "101.74",   # Fill Rate(%) Float型
+    "ecpm": "55.38"          # eCPM(円) Float型
   },
-  2014-12-30: {
-    earnings_yen: "13.70",
-    requests: 257,
-    impressions: 264,
-    cvvs: 238,
-    clicks: 1,
-    fill_rate: "102.72",
-    ecpm: "57.56"
+  "2014-12-30": {
+    "earnings_yen": "13.70",
+    "requests": 257,
+    "impressions": 264,
+    "cvvs": 238,
+    "clicks": 1,
+    "fill_rate": "102.72",
+    "ecpm": "57.56"
   },
-  total: {
-    earnings_yen: "630.00",
-    requests: 4616,
-    impressions: 4710,
-    cvvs: 4264,
-    clicks: 33,
-    fill_rate: "102.04",
-    ecpm: "147.63"
+  "total": {
+    "earnings_yen": "630.00",
+    "requests": 4616,
+    "impressions": 4710,
+    "cvvs": 4264,
+    "clicks": 33,
+    "fill_rate": "102.04",
+    "ecpm": "147.63"
   }
 }
 ```
