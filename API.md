@@ -85,7 +85,7 @@ URL: https://adcolony.glossom.jp/api/v1/users/sign_in
 
 ##### リクエスト例
 
-curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS http://localhost:3000/api/v1/users/sign_in
+curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS https://adcolony.glossom.jp/api/v1/users/sign_in
 
 #### レスポンス
 
@@ -221,7 +221,7 @@ INT型
 
 ##### リクエスト例
 
-curl -b cookie.txt -XGET -d month=2014/12 http://localhost:3000/api/v1/publisher/reports
+curl -b cookie.txt -XGET -d month=2014/12 https://adcolony.glossom.jp/api/v1/publisher/reports
 
 #### レスポンス
 
