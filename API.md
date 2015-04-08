@@ -19,6 +19,7 @@ AdColony配信実績取得用 API仕様書
 ### 2.1. リクエスト
 - パラメータの日本語はUTF-8でエンコーディングする必要があります。
 - ログインセッションはCookieにより管理されているので、APIを叩く際はクライアント側でCookieを保持してください
+- Cookieの期限はブラウザのセッションの終了時です
 - ログインが必要なAPIについて、セッションの有効期限切れもしくはサーバ側のセッションデータが削除されたあとに各APIにアクセスした場合は、認証エラー(HTTP 403)が返答されます。
 - 認証エラーが起きた場合はログインしなおしてください
 
@@ -84,7 +85,7 @@ URL: https://adcolony.glossom.jp/api/v1/users/sign_in
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/users/sign_in?user[email]=hoge@example.com&user[password]=PASS
+curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS http://localhost:3000/api/v1/users/sign_in
 
 #### レスポンス
 
@@ -114,7 +115,7 @@ DELETEでリクエストしてください。
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/users/sign_out
+curl -b cookie.txt -XDELETE https://adcolony.glossom.jp/api/v1/users/sign_out
 
 #### レスポンス
 
@@ -131,7 +132,7 @@ URL: https://adcolony.glossom.jp/api/v1/apps
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/apps
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/apps
 
 #### レスポンス
 
@@ -167,7 +168,7 @@ URL: https://adcolony.glossom.jp/api/v1/zones
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/zones
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/zones
 
 #### レスポンス
 
@@ -226,7 +227,7 @@ INT型
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/publisher/reports?month=2015-05-01&zone_id=1
+curl -b cookie.txt -XGET -d month=2014/12 http://localhost:3000/api/v1/publisher/reports
 
 #### レスポンス
 
@@ -236,41 +237,32 @@ jsonのsampleとデータ型に対する説明です。
 
 ```
 {
-  "2015-03-03": {         # 発生した日付 yyyy-mm-dd のDate型
-    "earnings_yen": 0,    # 収益(円) Float型
-    "requests": 0,        # 広告リクエスト数 INT型
-    "impressions": 0,     # 広告表示回数 INT型
-    "cvvs": 0,            # 動画視聴完了数 INT型
-    "clicks": 0,          # クリック数 INT型
-    "fill_rate": 0,       # Fill Rate(%) Float型
-    "ecpm": 0             # eCPM(円) Float型
+  2014-12-31: {
+    earnings_yen: "8.14",
+    requests: 172,
+    impressions: 175,
+    cvvs: 147,
+    clicks: 1,
+    fill_rate: "101.74",
+    ecpm: "55.38"
   },
-  "2015-03-02": {
-    "earnings_yen": 406.80468,
-    "requests": 441,
-    "impressions": 449,
-    "cvvs": 408,
-    "clicks": 4,
-    "fill_rate": 101.81405895691611,
-    "ecpm": 997.0702941176471
+  2014-12-30: {
+    earnings_yen: "13.70",
+    requests: 257,
+    impressions: 264,
+    cvvs: 238,
+    clicks: 1,
+    fill_rate: "102.72",
+    ecpm: "57.56"
   },
-  "2015-03-01": {
-    "earnings_yen": 796.97898,
-    "requests": 700,
-    "impressions": 735,
-    "cvvs": 643,
-    "clicks": 14,
-    "fill_rate": 105,
-    "ecpm": 1239.4696423017106
-  },
-  "total": {                           # 合算
-    "earnings_yen": 1203.78366,        
-    "requests": 1141,                  
-    "impressions": 1184,               
-    "cvvs": 1051,                      
-    "clicks": 18,                      
-    "fill_rate": 103.76862401402278,   
-    "ecpm": 1145.3698001902949         
+  total: {
+    earnings_yen: "630.00",
+    requests: 4616,
+    impressions: 4710,
+    cvvs: 4264,
+    clicks: 33,
+    fill_rate: "102.04",
+    ecpm: "147.63"
   }
 }
 ```
