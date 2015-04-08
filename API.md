@@ -42,8 +42,8 @@ HTTP Status Codeは以下を意味します
     <td>リクエストの必須項目が不足している等、リクエスト側の問題</td>
   </tr>
   <tr>
-    <td>403 Forbidden</td>
-    <td>API利用認可コードが不正</td>
+    <td>401 Unauthorized</td>
+    <td>APIログイン認証に関するエラー</td>
   </tr>
   <tr>
     <td>404 Not Found</td>
@@ -89,19 +89,13 @@ curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS http://localhost:
 
 #### レスポンス
 
-アカウント情報がJSONで返ります。
-
 ```
-{
-  "id":1,
-  "name":"hoge",
-  "account_id":1,
-  "status":1,
-  "created_at":"2015-03-05T08:11:57.000Z",
-  "updated_at":"2015-04-07T10:29:02.990Z",
-  "email":"hoge@example.com",
-  "password_set_by_admin":null
-}
+# ログインに成功した場合
+{"success":"ログインしました"}
+# ログインに失敗した場合
+{"errors":[{"message":"メールアドレスまたはパスワードが違います。"}]}
+# セッションが切れた場合
+{"errors":[{"message":"セッションがタイムアウトしました。もう一度ログインしてください。"}]}
 ```
 
 ### 3.2. ログアウト
