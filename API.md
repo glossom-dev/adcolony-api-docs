@@ -98,24 +98,7 @@ curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS https://adcolony.
 {"errors":[{"message":"セッションがタイムアウトしました。もう一度ログインしてください。"}]}
 ```
 
-### 3.2. ログアウト
-URL: https://adcolony.glossom.jp/api/v1/users/sign_out
-
-DELETEでリクエストしてください。
-
-#### リクエストパラメータ
-
-特になし
-
-##### リクエスト例
-
-curl -b cookie.txt -XDELETE https://adcolony.glossom.jp/api/v1/users/sign_out
-
-#### レスポンス
-
-特になし
-
-### 3.3. アプリ一覧取得
+### 3.2. アプリ一覧取得
 URL: https://adcolony.glossom.jp/api/v1/apps
 
 メディアの持つアプリ一覧が取得できます。
@@ -153,7 +136,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 3.4. 枠一覧取得
+### 3.3. 枠一覧取得
 URL: https://adcolony.glossom.jp/api/v1/zones
 
 #### リクエストパラメータ
@@ -189,7 +172,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 3.5. メディアレポート取得
+### 3.4. メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
