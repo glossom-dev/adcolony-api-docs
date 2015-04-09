@@ -2,7 +2,7 @@
 AdColony配信実績取得用 API仕様書
 
 ## Version
-0.9
+1.0
 
 ## 1. API一覧
 
