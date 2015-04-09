@@ -10,7 +10,7 @@ AdColony配信実績取得用 API仕様書
 * 枠一覧取得 ※1
 * メディアレポート取得 ※1
 
-※1: OAuth2.0による認証が必要なAPIです
+※1: ログインが必要なAPIです
 
 それぞれのAPIの詳細仕様は3.以降をご参照ください
 
@@ -18,8 +18,10 @@ AdColony配信実績取得用 API仕様書
 
 ### 2.1. リクエスト
 - パラメータの日本語はUTF-8でエンコーディングする必要があります。
-- OAuth2.0認証が必要なAPIについて、セッションの有効期限切れもしくはサーバ側のセッションデータが削除されたあとに各APIにアクセスした場合は、認証エラー(HTTP 403)が返答されます。
-- 認証エラーが起きた場合はOAuth2.0認証によりアクセストークンを再取得してください。
+- ログインセッションはCookieにより管理されているので、APIを叩く際はクライアント側でCookieを保持してください
+- ログインが必要なAPIについて、セッションの有効期限切れもしくはサーバ側のセッションデータが削除されたあとに各APIにアクセスした場合は、認証エラー(HTTP 403)が返答されます。
+- セッションの有効期限は一日です
+- 認証エラーが起きた場合はログインしなおしてください
 
 ### 2.2. レスポンス
 HTTP Response BodyはJSON形式となります。
@@ -40,8 +42,8 @@ HTTP Status Codeは以下を意味します
     <td>リクエストの必須項目が不足している等、リクエスト側の問題</td>
   </tr>
   <tr>
-    <td>403 Forbidden</td>
-    <td>API利用認可コードが不正</td>
+    <td>401 Unauthorized</td>
+    <td>APIログイン認証に関するエラー</td>
   </tr>
   <tr>
     <td>404 Not Found</td>
@@ -68,7 +70,35 @@ HTTP Status Codeは以下を意味します
 
 ## 3. API 詳細仕様
 
-### 3.1. アプリ一覧取得
+### 3.1. ログイン
+URL: https://adcolony.glossom.jp/api/v1/users/sign_in
+
+ログインユーザーの情報とクッキーが取得できます。
+
+#### リクエストパラメータ
+
+##### user[email]
+ユーザーのメールアドレス
+
+##### user[password]
+ユーザーのパスワード
+
+##### リクエスト例
+
+curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS https://adcolony.glossom.jp/api/v1/users/sign_in
+
+#### レスポンス
+
+```
+# ログインに成功した場合
+{"success":"ログインしました"}
+# ログインに失敗した場合
+{"errors":[{"message":"メールアドレスまたはパスワードが違います。"}]}
+# セッションが切れた場合
+{"errors":[{"message":"セッションがタイムアウトしました。もう一度ログインしてください。"}]}
+```
+
+### 3.2. アプリ一覧取得
 URL: https://adcolony.glossom.jp/api/v1/apps
 
 メディアの持つアプリ一覧が取得できます。
@@ -79,7 +109,7 @@ URL: https://adcolony.glossom.jp/api/v1/apps
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/apps
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/apps
 
 #### レスポンス
 
@@ -106,7 +136,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 3.2. 枠一覧取得
+### 3.3. 枠一覧取得
 URL: https://adcolony.glossom.jp/api/v1/zones
 
 #### リクエストパラメータ
@@ -115,7 +145,7 @@ URL: https://adcolony.glossom.jp/api/v1/zones
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/zones
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/zones
 
 #### レスポンス
 
@@ -142,7 +172,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 3.3. メディアレポート取得
+### 3.4. メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
@@ -151,10 +181,12 @@ URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 すべてGETで指定してください。
 
-##### start_date
-yyyy-mm-ddの日付形式 例 2015-05-01
+##### month
+* yyyy/mmの日付形式 例 2015/05
+* yyyy/mm/ddの日付形式 例 2015/05/01 ※ ddは解釈されません
+* yyyy-mm-ddの日付形式 例 2015-05-01 ※ ddは解釈されません
 
-取得したい対象月の月初が入ります。
+取得したい対象月を指定します。
 
 ##### app_id
 INT型
@@ -172,7 +204,7 @@ INT型
 
 ##### リクエスト例
 
-https://adcolony.glossom.jp/api/v1/publisher/reports?start_date=2015-05-01&zone_id=1
+curl -b cookie.txt -XGET -d month=2014/12 https://adcolony.glossom.jp/api/v1/publisher/reports
 
 #### レスポンス
 
@@ -182,41 +214,32 @@ jsonのsampleとデータ型に対する説明です。
 
 ```
 {
-  "2015-03-03": {         # 発生した日付 yyyy-mm-dd のDate型
-    "earnings_yen": 0,    # 収益(円) Float型
-    "requests": 0,        # 広告リクエスト数 INT型
-    "impressions": 0,     # 広告表示回数 INT型
-    "cvvs": 0,            # 動画視聴完了数 INT型
-    "clicks": 0,          # クリック数 INT型
-    "fill_rate": 0,       # Fill Rate(%) Float型
-    "ecpm": 0             # eCPM(円) Float型
+  "2014-12-31": {            # 発生した日付 yyyy-mm-dd のDate型
+    "earnings_yen": "8.14",  # 収益(円) Float型
+    "requests": 172,         # 広告リクエスト数 INT型
+    "impressions": 175,      # 広告表示回数 INT型
+    "cvvs": 147,             # 動画視聴完了数 INT型
+    "clicks": 1,             # クリック数 INT型
+    "fill_rate": "101.74",   # Fill Rate(%) Float型
+    "ecpm": "55.38"          # eCPM(円) Float型
   },
-  "2015-03-02": {
-    "earnings_yen": 406.80468,
-    "requests": 441,
-    "impressions": 449,
-    "cvvs": 408,
-    "clicks": 4,
-    "fill_rate": 101.81405895691611,
-    "ecpm": 997.0702941176471
+  "2014-12-30": {
+    "earnings_yen": "13.70",
+    "requests": 257,
+    "impressions": 264,
+    "cvvs": 238,
+    "clicks": 1,
+    "fill_rate": "102.72",
+    "ecpm": "57.56"
   },
-  "2015-03-01": {
-    "earnings_yen": 796.97898,
-    "requests": 700,
-    "impressions": 735,
-    "cvvs": 643,
-    "clicks": 14,
-    "fill_rate": 105,
-    "ecpm": 1239.4696423017106
-  },
-  "total": {                           # 合算
-    "earnings_yen": 1203.78366,        
-    "requests": 1141,                  
-    "impressions": 1184,               
-    "cvvs": 1051,                      
-    "clicks": 18,                      
-    "fill_rate": 103.76862401402278,   
-    "ecpm": 1145.3698001902949         
+  "total": {
+    "earnings_yen": "630.00",
+    "requests": 4616,
+    "impressions": 4710,
+    "cvvs": 4264,
+    "clicks": 33,
+    "fill_rate": "102.04",
+    "ecpm": "147.63"
   }
 }
 ```
