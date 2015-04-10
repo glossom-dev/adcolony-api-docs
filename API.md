@@ -17,7 +17,7 @@ AdColony配信実績取得用 API仕様書
 ## 2. ログインアカウント
 
 - 弊社レポートツール(https://adcolony.glossom.jp/tool/partner) のログインアカウントと同じ物がAPIでも利用可能です。
-- 別途必要であれば、https://adcolony.glossom.jp/users/sign_up からアカウント登録を行ってください。
+- 現状、ログインアカウントをお持ちではないが、レポートツールのご利用をご希望される場合は、http://video-ad.glossom.jp/#contact からお問い合わせください。
 
 ## 3. 全API共通 リクエスト・レスポンス
 
