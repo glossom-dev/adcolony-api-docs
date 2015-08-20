@@ -9,6 +9,10 @@ AdColony配信実績取得用 API仕様書
 * アプリ一覧取得 ※1
 * 枠一覧取得 ※1
 * メディアレポート取得 ※1
+* キャンペーン一覧取得
+* キャンペーン作成
+* キャンペーン変更
+* キャンペーン無効
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
@@ -248,4 +252,189 @@ jsonのsampleとデータ型に対する説明です。
     "ecpm": "147.63"
   }
 }
+```
+
+### 4.5. キャンペーン一覧取得
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns
+
+#### リクエストパラメータ
+
+| 名前 | 意味 | 必須 | サンプル |
+| ---- | ---- | ---- | -------- |
+| id | キャンペーンID | NO | 100 |
+| status | ステータス | NO | DELIVER/CANCELD |
+| start_date | 開始日時 | NO | YYYY/MM/DD | 2015/04/01 |
+| end_date | 終了日時 | NO | YYYY/MM/DD | 2015/12/31 |
+| platform | プラットフォーム | NO | "iOS" / "Android" |
+| bid_type | 単価種別 | NO | "CPM" / "CPCV" |
+
+##### リクエスト例
+
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/campaigns?status=1&platform=iOS
+
+#### レスポンス
+
+代理店/クライアントの持つキャンペーン一覧をjson形式で返します。
+
+jsonのsampleとデータ型に対する説明です。
+
+```
+{
+  {
+    "id": 137,                                   # キャンペーンID(ユニーク) INT型
+    "name": "wirecat01",                         # キャンペーン名 String型(255文字まで)
+    "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
+    "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
+  },
+  {
+    "id": 139,
+    "name": "wirecat01",
+    "created_at": "2015-03-05T05:00:19.000Z",
+    "updated_at": "2015-03-05T05:20:19.000Z"
+  }
+}
+```
+
+### 4.6. キャンペーン作成
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
+
+#### HTTP メソッド
+
+POST
+
+#### リクエストパラメータ
+
+| 名前 | 意味 | 必須 | 仕様 | サンプル |
+| ---- | ---- | ---- | ---- | -------- |
+| name | キャンペーン名 | YES | x文字以内 | キャンペーン |
+| total_budget | キャンペーン総予算 | YES | INT | 1000000 |
+| daily_budget | キャンペーン日予算 | YES | INT | 100000 |
+| start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
+| end_date | キャンペーン終了日時 | YES | YYYY/MM/DD | 2015/12/31 |
+| platform | プラットフォーム | YES | "iOS" / "Android" | iOS |
+| bid | 単価 | YES | 単位は円、少数点x位以下は切り捨て。| 100 |
+| bid_type | 単価種別 | YES | "CPM" / "CPCV" | CPM |
+
+##### リクエスト例
+
+```
+curl https://adcolony.glossom.jp/api/v1/campaigns \
+-b cookie.txt \
+--request POST \
+--header 'Content-type: application/json' \
+--data-urlencode 'name=キャンペーン' \
+-d 'total_budget=100000000' \
+-d 'daily_budget=1000000' \
+-d 'start_date=2015/09/01' \
+-d 'end_date=2015/12/31' \
+-d 'platform=iOS' \
+-d 'bid=0.1' \
+-d 'bid_type=CPM'
+```
+
+#### レスポンス
+
+* 成功の場合、レスポンスは無し。
+* 失敗の場合、エラーレスポンスを返却。
+
+### 4.7. キャンペーン更新
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
+
+指定したキャンペーン情報を更新することが出来ます。
+
+#### 前提条件
+
+キャンペーンの状態が以下のいずれかであること。
+
+* 新規
+* 否認
+
+該当キャンペーンの状態が上記の条件を満たさない場合、HTTPステータスコード `403` を返す。
+
+#### HTTP メソッド
+
+PUT
+
+#### リクエストパラメータ
+
+| 名前 | 意味 | 必須 | 仕様 | サンプル |
+| ---- | ---- | ---- | ---- | -------- |
+| name | キャンペーン名 | YES | x文字以内 | キャンペーン |
+| total_budget | キャンペーン総予算 | YES | INT | 1000000 |
+| daily_budget | キャンペーン日予算 | YES | INT | 100000 |
+| start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
+| end_date | キャンペーン終了日時 | YES | YYYY/MM/DD | 2015/12/31 |
+| platform | プラットフォーム | YES | "iOS" / "Android" | iOS |
+| bid | 単価 | YES | 単位は円、少数点x位以下は切り捨て。| 100 |
+| bid_type | 単価種別 | YES | "CPM" / "CPCV" | CPM |
+
+##### リクエスト例
+
+```
+curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
+-b cookie.txt \
+--request PUT \
+--header 'Content-type: application/json' \
+--data-urlencode 'name=キャンペーン' \
+-d 'total_budget=100000000' \
+-d 'daily_budget=1000000' \
+-d 'start_date=2015/09/01' \
+-d 'end_date=2015/12/31' \
+-d 'platform=iOS' \
+-d 'bid=0.1' \
+-d 'bid_type=CPM'
+```
+
+#### レスポンス
+
+```
+# 更新に成功した場合
+* HTTP Status Code: 200
+* HTTP Response Body: {"success":"ログインしました"}
+# 更新の前提条件を満たさなかった場合
+* HTTP Status Code: 409
+* HTTP Response Body: `{"errors":[{"message":"更新可能な状態ではありません。"}]}`
+```
+
+### 4.8. キャンペーン無効
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
+
+指定したキャンペーンを取り消すことが出来ます。
+
+#### 前提条件
+
+キャンペーンの状態が以下のいずれかであること。
+
+* 作成中
+* 変更中
+
+#### HTTP メソッド
+
+DELETE
+
+#### リクエストパラメータ
+
+無し
+
+##### リクエスト例
+
+```
+curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
+-b cookie.txt \
+--request DELETE \
+```
+
+#### レスポンス
+
+```
+# 無効化に成功した場合
+* HTTP Status Code: 200
+* HTTP Response Body: {"success":"ログインしました"}
+# 無効化の前提条件を満たさなかった場合
+* HTTP Status Code: 409
+* HTTP Response Body: `{"errors":[{"message":"無効化可能な状態ではありません。"}]}`
 ```
