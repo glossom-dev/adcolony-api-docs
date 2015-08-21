@@ -12,7 +12,7 @@ AdColony配信実績取得用 API仕様書
 * キャンペーン一覧取得
 * キャンペーン作成
 * キャンペーン変更
-* キャンペーン無効
+* キャンペーン取消
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
@@ -263,15 +263,13 @@ URL: https://adcolony.glossom.jp/api/v1/campaigns
 | 名前 | 意味 | 必須 | サンプル |
 | ---- | ---- | ---- | -------- |
 | id | キャンペーンID | NO | 100 |
-| status | ステータス | NO | DELIVER/CANCELD |
-| start_date | 開始日時 | NO | YYYY/MM/DD | 2015/04/01 |
-| end_date | 終了日時 | NO | YYYY/MM/DD | 2015/12/31 |
-| platform | プラットフォーム | NO | "iOS" / "Android" |
-| bid_type | 単価種別 | NO | "CPM" / "CPCV" |
+| status | ステータス | NO | [キャンペーン状態シンボル](STATE.md) を参照 |
+| platform | プラットフォーム | NO | iOS or Android |
+| bid_type | 単価種別 | NO | cpi or cpcv |
 
 ##### リクエスト例
 
-curl -b cookie.txt https://adcolony.glossom.jp/api/v1/campaigns?status=1&platform=iOS
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/campaigns?status=delivery&platform=ios
 
 #### レスポンス
 
@@ -283,22 +281,38 @@ jsonのsampleとデータ型に対する説明です。
 {
   {
     "id": 137,                                   # キャンペーンID(ユニーク) INT型
-    "name": "wirecat01",                         # キャンペーン名 String型(255文字まで)
+    "name": "キャンペーン1",                     # キャンペーン名 String型(255文字まで)
+	"status": "delivery",                        # ステータス
+	"start_date": "2015-03-05",                  # 配信開始日
+    "end_date": "2015-03-15",                    # 配信終了日
+    "bid": 100,                                  # Bid(円)
+    "bid_type": "cpi",                           # Bid type
+    "total_budget": 10000000,                    # 全体予算上限(円)
+    "daily_budget": 1000000,                     # 日予算上限(円)
+    "platform": "Android",                       # プラットフォーム
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
   },
   {
     "id": 139,
-    "name": "wirecat01",
+    "name": "キャンペーン2",
+	"status": "staged",
+	"start_date": "2015-03-05",
+    "end_date": "2015-03-25",
+    "bid": 200,
+    "bid_type": "cpcv",
+    "total_budget": 20000000,
+    "daily_budget": 2000000,
+    "platform": "iOS",
     "created_at": "2015-03-05T05:00:19.000Z",
     "updated_at": "2015-03-05T05:20:19.000Z"
   }
 }
 ```
 
-### 4.6. キャンペーン作成
+### 4.6. キャンペーン登録
 
-URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
+URL: https://adcolony.glossom.jp/api/v1/campaigns
 
 #### HTTP メソッド
 
@@ -309,13 +323,13 @@ POST
 | 名前 | 意味 | 必須 | 仕様 | サンプル |
 | ---- | ---- | ---- | ---- | -------- |
 | name | キャンペーン名 | YES | x文字以内 | キャンペーン |
-| total_budget | キャンペーン総予算 | YES | INT | 1000000 |
-| daily_budget | キャンペーン日予算 | YES | INT | 100000 |
 | start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
 | end_date | キャンペーン終了日時 | YES | YYYY/MM/DD | 2015/12/31 |
-| platform | プラットフォーム | YES | "iOS" / "Android" | iOS |
 | bid | 単価 | YES | 単位は円、少数点x位以下は切り捨て。| 100 |
-| bid_type | 単価種別 | YES | "CPM" / "CPCV" | CPM |
+| bid_type | 単価種別 | YES | "cpi" or "cpcv" | cpi |
+| total_budget | キャンペーン総予算(円) | YES | INT | 1000000 |
+| daily_budget | キャンペーン日予算(円) | YES | INT | 100000 |
+| platform | プラットフォーム | YES | "iOS" or "Android" | iOS |
 
 ##### リクエスト例
 
@@ -324,14 +338,14 @@ curl https://adcolony.glossom.jp/api/v1/campaigns \
 -b cookie.txt \
 --request POST \
 --header 'Content-type: application/json' \
---data-urlencode 'name=キャンペーン' \
--d 'total_budget=100000000' \
--d 'daily_budget=1000000' \
--d 'start_date=2015/09/01' \
--d 'end_date=2015/12/31' \
--d 'platform=iOS' \
--d 'bid=0.1' \
--d 'bid_type=CPM'
+-d camapign[name]=キャンペーン \
+-d campaign[start_date]=2015/09/01 \
+-d campaign[end_date]=2015/12/31 \
+-d campaign[bid]=100 \
+-d campaign[bid_type]=CPM \
+-d campaign[total_budget]=100000000 \
+-d campaign[daily_budget]=1000000 \
+-d campaign[platform]=iOS
 ```
 
 #### レスポンス
@@ -339,7 +353,32 @@ curl https://adcolony.glossom.jp/api/v1/campaigns \
 * 成功の場合、レスポンスは無し。
 * 失敗の場合、エラーレスポンスを返却。
 
-### 4.7. キャンペーン更新
+### 4.7. キャンペーン確定
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}/fix
+
+#### HTTP メソッド
+
+POST
+
+#### リクエストパラメータ
+
+特に無し
+
+##### リクエスト例
+
+```
+curl https://adcolony.glossom.jp/api/v1/campaigns/100/fix \
+-b cookie.txt \
+--request POST
+```
+
+#### レスポンス
+
+* 成功の場合、レスポンスは無し。
+* 失敗の場合、エラーレスポンスを返却。
+
+### 4.8. キャンペーン更新
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
 
@@ -347,12 +386,13 @@ URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
 
 #### 前提条件
 
-キャンペーンの状態が以下のいずれかであること。
+キャンペーンの状態が以下の場合、エラーレスポンスを返却します。
 
-* 新規
-* 否認
+* 作成中
+* 否認済み
+* 変更中
 
-該当キャンペーンの状態が上記の条件を満たさない場合、HTTPステータスコード `403` を返す。
+更新後の状態遷移は、[キャンペーン状態遷移図](STATE.md) を参照ください。
 
 #### HTTP メソッド
 
@@ -360,16 +400,16 @@ PUT
 
 #### リクエストパラメータ
 
-| 名前 | 意味 | 必須 | 仕様 | サンプル |
-| ---- | ---- | ---- | ---- | -------- |
-| name | キャンペーン名 | YES | x文字以内 | キャンペーン |
-| total_budget | キャンペーン総予算 | YES | INT | 1000000 |
-| daily_budget | キャンペーン日予算 | YES | INT | 100000 |
-| start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
-| end_date | キャンペーン終了日時 | YES | YYYY/MM/DD | 2015/12/31 |
-| platform | プラットフォーム | YES | "iOS" / "Android" | iOS |
-| bid | 単価 | YES | 単位は円、少数点x位以下は切り捨て。| 100 |
-| bid_type | 単価種別 | YES | "CPM" / "CPCV" | CPM |
+| 名前 | 意味 | 必須 | サンプル |
+| ---- | ---- | ---- | -------- |
+| name | キャンペーン名 | x文字以内 | キャンペーン |
+| start_date | キャンペーン開始日時 | YYYY/MM/DD | 2015/04/01 |
+| end_date | キャンペーン終了日時 | YYYY/MM/DD | 2015/12/31 |
+| bid | 単価 | 単位は円、少数点x位以下は切り捨て。| 100 |
+| bid_type | 単価種別 | "cpi" or "cpcv" | cpi |
+| total_budget | キャンペーン総予算(円) | INT | 1000000 |
+| daily_budget | キャンペーン日予算(円) | INT | 100000 |
+| platform | プラットフォーム | "iOS" or "Android" | iOS |
 
 ##### リクエスト例
 
@@ -378,14 +418,8 @@ curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
 -b cookie.txt \
 --request PUT \
 --header 'Content-type: application/json' \
---data-urlencode 'name=キャンペーン' \
--d 'total_budget=100000000' \
--d 'daily_budget=1000000' \
--d 'start_date=2015/09/01' \
--d 'end_date=2015/12/31' \
--d 'platform=iOS' \
--d 'bid=0.1' \
--d 'bid_type=CPM'
+-d campaign[end_date]=2015/12/31 \
+-d campaign[total_budget]=1000000000 \
 ```
 
 #### レスポンス
@@ -399,22 +433,26 @@ curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
 * HTTP Response Body: `{"errors":[{"message":"更新可能な状態ではありません。"}]}`
 ```
 
-### 4.8. キャンペーン無効
+### 4.9. キャンペーン取消
 
-URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
+URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}/cancel
 
-指定したキャンペーンを取り消すことが出来ます。
+指定したキャンペーンを取り消すことが出来ます。  
+
+取消後の状態遷移は、[キャンペーン状態遷移図](STATE.md) を参照ください。
 
 #### 前提条件
 
-キャンペーンの状態が以下のいずれかであること。
+キャンペーンの状態が以下の場合、エラーレスポンスを返却します。
 
 * 作成中
 * 変更中
 
+該当キャンペーンの状態が上記の条件を満たさない場合、HTTPステータスコード `409` を返します。
+
 #### HTTP メソッド
 
-DELETE
+POST
 
 #### リクエストパラメータ
 
@@ -423,18 +461,18 @@ DELETE
 ##### リクエスト例
 
 ```
-curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
+curl https://adcolony.glossom.jp/api/v1/campaigns/100/cancel \
 -b cookie.txt \
---request DELETE \
+--request POST
 ```
 
 #### レスポンス
 
 ```
-# 無効化に成功した場合
+# 取消に成功した場合
 * HTTP Status Code: 200
 * HTTP Response Body: {"success":"ログインしました"}
-# 無効化の前提条件を満たさなかった場合
+# 取消の前提条件を満たさなかった場合
 * HTTP Status Code: 409
-* HTTP Response Body: `{"errors":[{"message":"無効化可能な状態ではありません。"}]}`
+* HTTP Response Body: `{"errors":[{"message":"取消可能な状態ではありません。"}]}`
 ```
