@@ -8,19 +8,25 @@
 
 | シンボル | 意味 |
 | -------- | ---- |
-| staged | 作成中 |
+| judge | 掲載判定中 |
+| pass | 掲載可 |
 | invalid | 無効 |
-| fixed | 確定済み |
 | review | 審査中 |
-| approved | 承認済み |
-| denied | 否認済み |
-| ready | 配信待ち |
+| prepare | 配信準備中 |
+| ready | 配信準備完了 |
 | delivery | 配信中 |
 | close | 配信終了 |
+
+
+| ready | 配信待ち |
 | editing | 変更中 |
 | reflecting | 反映中 |
 
 ### 状態遷移図
 
 ![キャンペーン状態遷移図](STATE/campaign.png)
+
+![キャンペーン状態遷移図2](STATE/campaign2.png)
+
+![キャンペーン状態遷移図3](STATE/campaign3.png)
 
