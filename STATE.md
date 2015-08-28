@@ -8,7 +8,7 @@
 
 | シンボル | 意味 |
 | -------- | ---- |
-| in_judge | 掲載可否判定中 |
+| judge | 掲載可否判定中 |
 | pass | 掲載OK |
 | invalid | 掲載NG |
 | review | 審査中 |
