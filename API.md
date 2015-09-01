@@ -9,11 +9,12 @@ AdColony配信実績取得用 API仕様書
 * アプリ一覧取得 ※1
 * 枠一覧取得 ※1
 * メディアレポート取得 ※1
+* 掲載可否審査依頼
 * キャンペーン一覧取得
+* クリエイティブアップロード
 * キャンペーン登録
-* キャンペーン確定
-* キャンペーン変更
-* キャンペーン取消
+* 配信設定変更依頼
+* 配信設定変更取消
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
@@ -59,6 +60,10 @@ HTTP Status Codeは以下を意味します
   <tr>
     <td>404 Not Found</td>
     <td>該当のデータやリソースがない</td>
+  </tr>
+  <tr>
+    <td>409 Conflict</td>
+    <td>リクエストと、サーバに既に存在しているデータが競合している</td>
   </tr>
   <tr>
     <td>500 Internal Server Error</td>
@@ -109,6 +114,8 @@ curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS https://adcolony.
 {"errors":[{"message":"セッションがタイムアウトしました。もう一度ログインしてください。"}]}
 ```
 
+--
+
 ### 4.2. アプリ一覧取得
 URL: https://adcolony.glossom.jp/api/v1/apps
 
@@ -147,6 +154,8 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
+--
+
 ### 4.3. 枠一覧取得
 URL: https://adcolony.glossom.jp/api/v1/zones
 
@@ -182,6 +191,8 @@ jsonのsampleとデータ型に対する説明です。
   }
 }
 ```
+
+--
 
 ### 4.4. メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
@@ -255,6 +266,8 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
+--
+
 ### 4.5. キャンペーン一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
@@ -279,6 +292,9 @@ curl -b cookie.txt https://adcolony.glossom.jp/api/v1/campaigns?status=delivery&
 jsonのsampleとデータ型に対する説明です。
 
 ```
+HTTP/1.1 200
+Content-Type: application/json
+
 {
   {
     "id": 137,                                   # キャンペーンID(ユニーク) INT型
@@ -311,9 +327,13 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.6. キャンペーン登録
+--
 
-URL: https://adcolony.glossom.jp/api/v1/campaigns
+### 4.6. クリエイティブアップロード
+
+URL: https://adcolony.glossom.jp/api/v1/creatives
+
+一度にxxx件まで同時にクリエイティブをアップロードすることが出来ます。
 
 #### HTTP メソッド
 
@@ -321,42 +341,142 @@ POST
 
 #### リクエストパラメータ
 
-| 名前 | 意味 | 必須 | 仕様 | サンプル |
-| ---- | ---- | ---- | ---- | -------- |
-| name | キャンペーン名 | YES | x文字以内 | キャンペーン |
-| start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
-| end_date | キャンペーン終了日時 | YES | YYYY/MM/DD | 2015/12/31 |
-| bid | 単価 | YES | 単位は円、少数点x位以下は切り捨て。| 100 |
-| bid_type | 単価種別 | YES | "cpi" or "cpcv" | cpi |
-| total_budget | キャンペーン総予算(円) | YES | INT | 1000000 |
-| daily_budget | キャンペーン日予算(円) | YES | INT | 100000 |
-| platform | プラットフォーム | YES | "iOS" or "Android" | iOS |
+| 名前 | 意味 | 必須 | 仕様 |
+| -------- | ---- | ---- | ---- | ---- |
+| name | ファイル名 | YES | 128文字以内 |
+| platform | プラットフォーム | YES | "iOS" or "Android" |
+| media_file | メディアファイル | YES | sample.mp4 |
+| click_url | クリックURL | YES | 512文字以内 |
+| postback_url | ポストバックURL | YES | 512文字以内 |
 
-##### リクエスト例
+#### レスポンス
+
+##### ステータスコード
+
+* リクエストに成功した場合、ステータスコード`200`を返します。
+* リクエストに失敗した場合、エラーレスポンス及び発生したエラーに該当するステータスコードを返却します。  
+  
+##### ボディ
+
+| 名前 | 意味 |
+| -------- | ---- |
+| id | クリエイティブID |
+| created_at | データ生成日時(JST) |
+
+#### サンプル
+
+##### リクエスト
+
+```
+curl https://adcolony.glossom.jp/api/v1/creatives \
+-b cookie.txt \
+--request POST \
+--header 'Content-type: application/octet-stream' \
+-d name=テスト動画 \
+-d platform=iOS \
+-d click_url=http://hastrk3.com/serve?action=click
+-d postback_url=https://t.metaps.biz/v1/cpi/click?campaign_id=kojp-co-gu3-crystal-bc-ios5541d21507a2b3b612d487b149&network_id=18&device_id=[IDFA]&device_id_type=idfa&mac_sha1=[MAC_SHA1]&odin=[ODIN1]&openudid=[OPEN_UDID]&site_id=[APP_ID]&udid=[UDID] \
+--data-binary media_file="@sample.mp4"
+```
+
+##### レスポンス
+
+```
+HTTP/1.1 200
+Content-Type: application/json
+
+{
+  "id": 10,
+  "created_at": "2000-01-01T00:00:00+00:00"
+}
+```
+
+### 4.6. 掲載可否審査依頼
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns
+
+#### 前提条件
+
+キャンペーンの状態が以下の場合、依頼することが出来ます。  
+下記以外の状態だった場合、エラーレスポンスを返却します。
+
+* 掲載OK
+
+更新後の状態遷移は、[キャンペーン状態遷移図](STATE.md) を参照ください。
+
+#### HTTP メソッド
+
+POST
+
+#### リクエストパラメータ
+
+| カテゴリ | 名前 | 意味 | 必須 | 仕様 |
+| -------- | ---- | ---- | ---- | ---- |
+| campaign | | キャンペーン情報 | | |
+| | name | アプリ/キャンペーン名称 | YES | 128文字以内 |
+| | platform | プラットフォーム | YES | "iOS" or "Android" or "Web" |
+| | client | クライアント名 | YES | 128文字以内 |
+| | agency | 代理店名 | NO | 128文字以内 |
+| | url | APPの場合はストアURL、WEBの場合は、クリック後遷移先URL | YES | |
+| contact | | 担当者情報 | | |
+| | company | 御社名 | YES | 128文字以内 |
+| | name | 担当者名 | YES | 128文字以内 |
+| | mail | 担当者メールアドレス | YES | |
+| | tel | 担当者電話番号 | YES | |
+
+#### レスポンス
+
+##### ステータスコード
+
+* リクエストに成功した場合、ステータスコード`200`を返します。
+* リクエストに失敗した場合、エラーレスポンス及び発生したエラーに該当するステータスコードを返却します。  
+  
+##### ボディ
+
+| 名前 | 意味 |
+| -------- | ---- |
+| id | キャンペーンID |
+| created_at | データ生成日時(JST) |
+
+#### サンプル
+
+##### リクエスト
 
 ```
 curl https://adcolony.glossom.jp/api/v1/campaigns \
 -b cookie.txt \
 --request POST \
 --header 'Content-type: application/json' \
--d camapign[name]=キャンペーン \
--d campaign[start_date]=2015/09/01 \
--d campaign[end_date]=2015/12/31 \
--d campaign[bid]=100 \
--d campaign[bid_type]=CPM \
--d campaign[total_budget]=100000000 \
--d campaign[daily_budget]=1000000 \
--d campaign[platform]=iOS
+-d camapign[name]=テストキャンペーン \
+-d campaign[client]=テストクライアント \
+-d campaign[agency]=テスト代理店 \
+-d campaign[platform]=iOS \
+-d camapign[url]=https://itunes.apple.com/jp/app/keynote/id361285480?mt=8 \
+-d contact[company]=テスト会社 \
+-d contact[name]=山田太郎 \
+-d contact[mail]=test@example.com \
+-d contact[tel]=03-1234-5678
 ```
 
-#### レスポンス
+##### レスポンス
 
-* 成功の場合、レスポンスは無し。
-* 失敗の場合、エラーレスポンスを返却。
+```
+HTTP/1.1 200
+Content-Type: application/json
 
-### 4.7. キャンペーン確定
+{
+  "id": 1,
+  "created_at": "2000-01-01T00:00:00+00:00"
+}
+```
 
-URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}/fix
+--
+
+### 4.6. キャンペーン登録
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns/:campaign_id
+
+※予めクリエイティブアップロードAPIでクリエイティブIDを取得してください。
 
 #### HTTP メソッド
 
@@ -364,34 +484,76 @@ POST
 
 #### リクエストパラメータ
 
-特に無し
-
-##### リクエスト例
-
-```
-curl https://adcolony.glossom.jp/api/v1/campaigns/100/fix \
--b cookie.txt \
---request POST
-```
+| 名前 | 意味 | 必須 | 仕様 | 備考 |
+| ---- | ---- | ---- | ---- | -------- |
+| campaign_id | キャンペーンID | YES | - | 掲載可否審査依頼APIで返したキャンペーンIDを、URLの`:campaign_id`に指定下さい。 |
+| creative_id | クリエイティブID | YES | - | 事前にクリエイティブアップロードAPIで返したクリエイティブIDを指定下さい。 |
+| cpi | 目標CPI(円) | YES | - | - |
+| total_budget | キャンペーン総予算(円) | YES | 600,000円以上 | 1000000 |
+| daily_budget | キャンペーン日予算(円) | YES | 20,000円以上 | 100000 |
+| start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
+| end_date | キャンペーン終了日時 | YES | YYYY/MM/DD | 2015/12/31 |
+| bid | 単価 | YES | 単位は円、少数点x位以下は切り捨て。| 100 |
+| bid_type | 単価種別 | YES | "cpi" or "cpcv" | cpi |
+| tracking | トラッキングツール | YES | xxx文字以下 | 複数指定可 |
+| os | 配信OS指定 | NO | "iOS" or "Android" | |
+| device | 配信デバイス指定 | NO | iOS: "iPad / iPhone / iPod, Andrid: Phone / Tablet" | 複数指定可 |
+| country | 配信国指定 | NO | "JP" or "US" | |
+| note | 備考 | NO | 255文字以下 | 希望等あればご利用ください |
 
 #### レスポンス
 
-* 成功の場合、レスポンスは無し。
-* 失敗の場合、エラーレスポンスを返却。
+##### ステータスコード
 
-### 4.8. キャンペーン更新
+* リクエストに成功した場合、ステータスコード`200`を返します。
+* リクエストに失敗した場合、エラーレスポンス及び発生したエラーに該当するステータスコードを返却します。  
 
-URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}
+#### サンプル
+  
+##### リクエスト
 
-指定したキャンペーン情報を更新することが出来ます。
+```
+curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
+-b cookie.txt \
+--request POST \
+--header 'Content-type: application/json' \
+-d creative_id=[1000] \
+-d cpi=1000 \
+-d total_budget=100000000 \
+-d daily_budget=1000000 \
+-d start_date=2015/09/01 \
+-d end_date=2015/12/31 \
+-d bid=100 \
+-d bid_type=CPM \
+-d tracking=["test", "test2"] \
+-d os=iOS \
+-d device=["iPad", "iPhone"] \
+-d country=JP \
+-d note=test
+```
+
+##### レスポンス
+
+```
+HTTP/1.1 200
+```
+
+--
+
+### 4.8. 配信設定変更依頼
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns/:camapign_id/change
+
+指定したキャンペーンの配信設定変更を依頼することが出来ます。  
+実際に変更が反映されるまでの間にはタイムラグが存在します。
 
 #### 前提条件
 
-キャンペーンの状態が以下の場合、エラーレスポンスを返却します。
+キャンペーンの状態が以下の場合、依頼することが出来ます。  
+下記以外の状態だった場合、エラーレスポンスを返却します。
 
-* 作成中
-* 否認済み
-* 変更中
+* 配信中
+* 配信終了
 
 更新後の状態遷移は、[キャンペーン状態遷移図](STATE.md) を参照ください。
 
@@ -403,19 +565,39 @@ PUT
 
 | 名前 | 意味 | 必須 | サンプル |
 | ---- | ---- | ---- | -------- |
-| name | キャンペーン名 | x文字以内 | キャンペーン |
-| start_date | キャンペーン開始日時 | YYYY/MM/DD | 2015/04/01 |
-| end_date | キャンペーン終了日時 | YYYY/MM/DD | 2015/12/31 |
-| bid | 単価 | 単位は円、少数点x位以下は切り捨て。| 100 |
-| bid_type | 単価種別 | "cpi" or "cpcv" | cpi |
-| total_budget | キャンペーン総予算(円) | INT | 1000000 |
-| daily_budget | キャンペーン日予算(円) | INT | 100000 |
-| platform | プラットフォーム | "iOS" or "Android" | iOS |
+| campaign_id | キャンペーンID | NO | - | URLの`:campaign_id`に指定下さい。 |
+| cpi | 目標CPI(円) | NO | - | - |
+| total_budget | キャンペーン総予算(円) | NO | 600,000円以上 | 1000000 |
+| daily_budget | キャンペーン日予算(円) | NO | 20,000円以上 | 100000 |
+| start_date | キャンペーン開始日時 | NO | YYYY/MM/DD | 2015/04/01 |
+| end_date | キャンペーン終了日時 | NO | YYYY/MM/DD | 2015/12/31 |
+| bid | 単価 | NO | 単位は円、少数点x位以下は切り捨て。| 100 |
+| bid_type | 単価種別 | NO | "cpi" or "cpcv" | ※cpiこれ変更可能にする？ |
+| tracking | トラッキングツール | NO | xxx文字以下 | 複数指定可 |
+| os | 配信OS指定 | NO | "iOS" or "Android" | |
+| device | 配信デバイス指定 | NO | iOS: "iPad / iPhone / iPod, Andrid: Phone / Tablet" | 複数指定可 |
+| country | 配信国指定 | NO | "JP" or "US" | |
+| note | 備考 | NO | 255文字以下 | 希望等あればご利用ください |
+
+下記の値で登録情報を上書きするため、変更情報としては差分ではなく、変更後の値をリクエストして下さい。  
+なお、変更しないデータについてはリクエストパラメータに含める必要はありません。
+
+##### ステータスコード
+
+* リクエストに成功した場合、ステータスコード`200`を返します。
+* リクエストに失敗した場合、エラーレスポンス及び発生したエラーに該当するステータスコードを返却します。
+* 前提条件を満たさなかった場合、ステータスコード`409`を返します。
+
+##### ボディ
+
+なし
+
+#### サンプル
 
 ##### リクエスト例
 
 ```
-curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
+curl https://adcolony.glossom.jp/api/v1/campaigns/100/change \
 -b cookie.txt \
 --request PUT \
 --header 'Content-type: application/json' \
@@ -423,33 +605,31 @@ curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
 -d campaign[total_budget]=1000000000 \
 ```
 
-#### レスポンス
+##### レスポンス
 
 ```
-# 更新に成功した場合
-* HTTP Status Code: 200
-* HTTP Response Body: {"success":"ログインしました"}
-# 更新の前提条件を満たさなかった場合
-* HTTP Status Code: 409
-* HTTP Response Body: `{"errors":[{"message":"更新可能な状態ではありません。"}]}`
+HTTP/1.1 200
 ```
 
-### 4.9. キャンペーン取消
+--
+
+### 4.9. 配信設定変更取消
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}/cancel
 
-指定したキャンペーンを取り消すことが出来ます。  
+キャンペーンの変更依頼を取り消すことが出来ます。  
 
 取消後の状態遷移は、[キャンペーン状態遷移図](STATE.md) を参照ください。
 
 #### 前提条件
 
-キャンペーンの状態が以下の場合、エラーレスポンスを返却します。
+キャンペーンの状態が以下の場合、依頼することが出来ます。  
+下記以外の状態だった場合、エラーレスポンスを返却します。
 
-* 作成中
-* 変更中
+* 設定変更中
+* 設定再利用中
 
-該当キャンペーンの状態が上記の条件を満たさない場合、HTTPステータスコード `409` を返します。
+取消後の状態遷移は、[キャンペーン状態遷移図](STATE.md) を参照ください。
 
 #### HTTP メソッド
 
@@ -457,7 +637,21 @@ POST
 
 #### リクエストパラメータ
 
-無し
+| 名前 | 意味 | 必須 | サンプル |
+| ---- | ---- | ---- | -------- |
+| campaign_id | キャンペーンID | NO | - | URLの`:campaign_id`に指定下さい。 |
+
+##### ステータスコード
+
+* リクエストに成功した場合、ステータスコード`200`を返します。
+* リクエストに失敗した場合、エラーレスポンス及び発生したエラーに該当するステータスコードを返却します。
+* 前提条件を満たさなかった場合、ステータスコード`409`を返します。
+
+##### ボディ
+
+なし
+
+#### サンプル
 
 ##### リクエスト例
 
@@ -467,13 +661,8 @@ curl https://adcolony.glossom.jp/api/v1/campaigns/100/cancel \
 --request POST
 ```
 
-#### レスポンス
+##### レスポンス
 
 ```
-# 取消に成功した場合
-* HTTP Status Code: 200
-* HTTP Response Body: {"success":"ログインしました"}
-# 取消の前提条件を満たさなかった場合
-* HTTP Status Code: 409
-* HTTP Response Body: `{"errors":[{"message":"取消可能な状態ではありません。"}]}`
+HTTP/1.1 200
 ```
