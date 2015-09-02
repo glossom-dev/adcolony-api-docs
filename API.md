@@ -511,7 +511,6 @@ POST
 | ---- | ---- | ---- | ---- | -------- |
 | campaign_id | キャンペーンID | YES | - | 掲載可否審査依頼APIで返したキャンペーンIDを、URLの`:campaign_id`に指定下さい。 |
 | creative_id | クリエイティブID | YES | - | 事前にクリエイティブアップロードAPIで返したクリエイティブIDを指定下さい。 |
-| goal | 目標 | YES | - | - |
 | total_budget | キャンペーン総予算(円) | YES | 600,000円以上 | 1000000 |
 | daily_budget | キャンペーン日予算(円) | YES | 20,000円以上 | 100000 |
 | start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
@@ -541,7 +540,6 @@ curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
 --request POST \
 --header 'Content-type: application/json' \
 -d creative_id=[1000] \
--d cpi=1000 \
 -d total_budget=100000000 \
 -d daily_budget=1000000 \
 -d start_date=2015/09/01 \
