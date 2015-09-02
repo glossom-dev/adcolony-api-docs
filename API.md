@@ -400,8 +400,8 @@ curl https://adcolony.glossom.jp/api/v1/creatives \
 --form 'media_file=@sample.mp4'
 --form 'name=テスト動画' \
 --form 'platform=iOS' \
---form 'click_url=http://hastrk3.com/serve?action=click' \
---form 'postback_url=https://t.metaps.biz/v1/cpi/click?campaign_id=kojp-co-gu3-crystal-bc-ios5541d21507a2b3b612d487b149&network_id=18&device_id=[IDFA]&device_id_type=idfa&mac_sha1=[MAC_SHA1]&odin=[ODIN1]&openudid=[OPEN_UDID]&site_id=[APP_ID]&udid=[UDID]'
+--form 'click_url=http://example.com/click?action=xxx' \
+--form 'postback_url=https://postback.example.com/click?campaign_id=xx'
 ```
 
 ##### レスポンス
