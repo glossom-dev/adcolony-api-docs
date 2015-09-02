@@ -466,7 +466,9 @@ POST
 
 ##### リクエスト
 
-```sample.json
+sample.json
+
+```
 {
   "campaign": {
     "name": "テストキャンペーン",
@@ -544,7 +546,9 @@ POST
   
 ##### リクエスト
 
-```sample.json
+sample.json
+
+```
 {
   "creative_id": [
     100,
@@ -642,7 +646,9 @@ PUT
 
 ##### リクエスト例
 
-```sample.json
+sample.json
+
+```
 {
   "campaign": {
     "end_date": "2015/12/31",
