@@ -395,7 +395,7 @@ POST
 curl https://adcolony.glossom.jp/api/v1/creatives \
 -b cookie.txt \
 --request POST \
---header 'Content-type: application/octet-stream' \
+--header 'Content-Type: application/octet-stream' \
 -d name=テスト動画 \
 -d platform=iOS \
 -d click_url=http://hastrk3.com/serve?action=click
@@ -490,7 +490,7 @@ sample.json
 curl https://adcolony.glossom.jp/api/v1/campaigns \
 -b cookie.txt \
 --request POST \
---header 'Content-type: application/json' \
+--header 'Content-Type: application/json' \
 -d @sample.json
 ```
 
@@ -578,7 +578,7 @@ sample.json
 curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
 -b cookie.txt \
 --request POST \
---header 'Content-type: application/json' \
+--header 'Content-Type: application/json' \
 -d @sample.json
 ```
 
@@ -661,7 +661,7 @@ sample.json
 curl https://adcolony.glossom.jp/api/v1/campaigns/100/change \
 -b cookie.txt \
 --request PUT \
---header 'Content-type: application/json' \
+--header 'Content-Type: application/json' \
 -d @sample.json
 ```
 
