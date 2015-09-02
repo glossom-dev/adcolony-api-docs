@@ -386,7 +386,6 @@ POST
 | 名前 | 意味 |
 | -------- | ---- |
 | id | クリエイティブID |
-| created_at | データ生成日時(JST) |
 
 #### サンプル
 
@@ -411,8 +410,7 @@ HTTP/1.1 200
 Content-Type: application/json
 
 {
-  "id": 10,
-  "created_at": "2000-01-01T00:00:00+00:00"
+  "id": 10 # クリエイティブID
 }
 ```
 
@@ -463,7 +461,6 @@ POST
 | 名前 | 意味 |
 | -------- | ---- |
 | id | キャンペーンID |
-| created_at | データ生成日時(JST) |
 
 #### サンプル
 
@@ -492,8 +489,7 @@ HTTP/1.1 200
 Content-Type: application/json
 
 {
-  "id": 1,
-  "created_at": "2000-01-01T00:00:00+00:00"
+  "id": 1 # キャンペーンID
 }
 ```
 
