@@ -466,20 +466,30 @@ POST
 
 ##### リクエスト
 
+```sample.json
+{
+  "campaign": {
+    "name": "テストキャンペーン",
+    "client": "テストクライアント",
+    "agency": "テスト代理店",
+    "platform": "iOS",
+    "url": "https://itunes.apple.com/jp/app/keynote/id361285480?mt=8"
+  },
+  "contact": {
+    "company": "テスト会社",
+    "name": "山田太郎",
+    "mail": "test@example.com",
+    "tel": "03-1234-5678"
+  }
+}
+```
+
 ```
 curl https://adcolony.glossom.jp/api/v1/campaigns \
 -b cookie.txt \
 --request POST \
 --header 'Content-type: application/json' \
--d camapign[name]=テストキャンペーン \
--d campaign[client]=テストクライアント \
--d campaign[agency]=テスト代理店 \
--d campaign[platform]=iOS \
--d camapign[url]=https://itunes.apple.com/jp/app/keynote/id361285480?mt=8 \
--d contact[company]=テスト会社 \
--d contact[name]=山田太郎 \
--d contact[mail]=test@example.com \
--d contact[tel]=03-1234-5678
+-d @sample.json
 ```
 
 ##### レスポンス
@@ -534,23 +544,38 @@ POST
   
 ##### リクエスト
 
+```sample.json
+{
+  "creative_id": [
+    100,
+    101
+  ],
+  "total_budget": 100000000,
+  "daily_budget": 1000000,
+  "start_date": "2015/09/01",
+  "end_date": "2015/12/31",
+  "bid": 100,
+  "bid_type": "CPM",
+  "tracking": [
+    "test",
+    "test2"
+  ],
+  "os": "iOS",
+  "device": [
+    "iPad",
+    "iPhone"
+  ],
+  "country": "JP",
+  "note": "test"
+}
+```
+
 ```
 curl https://adcolony.glossom.jp/api/v1/campaigns/100 \
 -b cookie.txt \
 --request POST \
 --header 'Content-type: application/json' \
--d creative_id=[1000] \
--d total_budget=100000000 \
--d daily_budget=1000000 \
--d start_date=2015/09/01 \
--d end_date=2015/12/31 \
--d bid=100 \
--d bid_type=CPM \
--d tracking=["test", "test2"] \
--d os=iOS \
--d device=["iPad", "iPhone"] \
--d country=JP \
--d note=test
+-d @sample.json
 ```
 
 ##### レスポンス
@@ -617,13 +642,21 @@ PUT
 
 ##### リクエスト例
 
+```sample.json
+{
+  "campaign": {
+    "end_date": "2015/12/31",
+    "total_budget": 1000000000
+  }
+}
+```
+
 ```
 curl https://adcolony.glossom.jp/api/v1/campaigns/100/change \
 -b cookie.txt \
 --request PUT \
 --header 'Content-type: application/json' \
--d campaign[end_date]=2015/12/31 \
--d campaign[total_budget]=1000000000 \
+-d @sample.json
 ```
 
 ##### レスポンス
