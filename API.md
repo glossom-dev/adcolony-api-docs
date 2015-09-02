@@ -416,7 +416,9 @@ Content-Type: application/json
 }
 ```
 
-### 4.6. 掲載可否審査依頼
+--
+
+### 4.7. 掲載可否審査依頼
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
 
@@ -497,7 +499,7 @@ Content-Type: application/json
 
 --
 
-### 4.6. キャンペーン登録
+### 4.8. キャンペーン登録
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/:campaign_id
 
@@ -565,7 +567,7 @@ HTTP/1.1 200
 
 --
 
-### 4.8. 配信設定変更依頼
+### 4.9. 配信設定変更依頼
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/:camapign_id/change
 
@@ -638,7 +640,7 @@ HTTP/1.1 200
 
 --
 
-### 4.9. 配信設定変更取消
+### 4.10. 配信設定変更取消
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}/cancel
 
