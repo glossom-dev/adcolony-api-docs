@@ -6,15 +6,15 @@ AdColony配信実績取得用 API仕様書
 
 ## 1. API一覧
 
-* アプリ一覧取得 ※1
-* 枠一覧取得 ※1
-* メディアレポート取得 ※1
-* 掲載可否審査依頼
-* キャンペーン一覧取得
-* クリエイティブアップロード
-* キャンペーン登録
-* 配信設定変更依頼
-* 配信設定変更取消
+* [アプリ一覧取得](#fetch_app)
+* [枠一覧取得](#fetch_zones)
+* [メディアレポート取得](#fetch_zone_report)
+* [キャンペーン一覧取得](#fetch_campaigns)
+* [クリエイティブアップロード](#upload_creative)
+* [掲載可否審査依頼](#judge_campaign)
+* [キャンペーン登録](#create_campaign)
+* [配信設定変更依頼](#update_campaign)
+* [配信設定変更取消](#cancel_campaign)
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
@@ -116,7 +116,7 @@ curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS https://adcolony.
 
 --
 
-### 4.2. アプリ一覧取得
+### <a id="fetch_app"></a>4.2. アプリ一覧取得
 URL: https://adcolony.glossom.jp/api/v1/apps
 
 メディアの持つアプリ一覧が取得できます。
@@ -156,7 +156,7 @@ jsonのsampleとデータ型に対する説明です。
 
 --
 
-### 4.3. 枠一覧取得
+### <a id="fetch_zones"></a>4.3. 枠一覧取得
 URL: https://adcolony.glossom.jp/api/v1/zones
 
 #### リクエストパラメータ
@@ -194,7 +194,7 @@ jsonのsampleとデータ型に対する説明です。
 
 --
 
-### 4.4. メディアレポート取得
+### <a id="fetch_zone_report"></a>4.4. メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
@@ -268,7 +268,7 @@ jsonのsampleとデータ型に対する説明です。
 
 --
 
-### 4.5. キャンペーン一覧取得
+### <a id="fetch_campaign"></a>4.5. キャンペーン一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
 
@@ -354,7 +354,7 @@ Content-Type: application/json
 
 --
 
-### 4.6. クリエイティブアップロード
+### <a id="upload_creative"></a>4.6. クリエイティブアップロード
 
 URL: https://adcolony.glossom.jp/api/v1/creatives
 
@@ -418,7 +418,7 @@ Content-Type: application/json
 
 --
 
-### 4.7. 掲載可否審査依頼
+### <a id="judge_campaign"></a>4.7. 掲載可否審査依頼
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
 
@@ -499,7 +499,7 @@ Content-Type: application/json
 
 --
 
-### 4.8. キャンペーン登録
+### <a id="create_campaign"></a>4.8. キャンペーン登録
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/:campaign_id
 
@@ -567,7 +567,7 @@ HTTP/1.1 200
 
 --
 
-### 4.9. 配信設定変更依頼
+### <a id="update_campaign"></a>4.9. 配信設定変更依頼
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/:camapign_id/change
 
@@ -640,7 +640,7 @@ HTTP/1.1 200
 
 --
 
-### 4.10. 配信設定変更取消
+### <a id="cancel_campaign"></a>4.10. 配信設定変更取消
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}/cancel
 
