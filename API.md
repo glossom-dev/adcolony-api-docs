@@ -268,7 +268,7 @@ jsonのsampleとデータ型に対する説明です。
 
 --
 
-### <a id="fetch_campaign"></a>4.5. キャンペーン一覧取得
+### <a id="fetch_campaigns"></a>4.5. キャンペーン一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
 
