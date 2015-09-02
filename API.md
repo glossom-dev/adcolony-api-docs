@@ -358,7 +358,7 @@ Content-Type: application/json
 
 URL: https://adcolony.glossom.jp/api/v1/creatives
 
-一度にxxx件まで同時にクリエイティブをアップロードすることが出来ます。
+クリエイティブをアップロードすることが出来ます。
 
 #### HTTP メソッド
 
@@ -391,16 +391,17 @@ POST
 
 ##### リクエスト
 
+事前にメディアファイルを用意しておく必要があります。
+
 ```
 curl https://adcolony.glossom.jp/api/v1/creatives \
 -b cookie.txt \
 --request POST \
---header 'Content-Type: application/octet-stream' \
--d name=テスト動画 \
--d platform=iOS \
--d click_url=http://hastrk3.com/serve?action=click
--d postback_url=https://t.metaps.biz/v1/cpi/click?campaign_id=kojp-co-gu3-crystal-bc-ios5541d21507a2b3b612d487b149&network_id=18&device_id=[IDFA]&device_id_type=idfa&mac_sha1=[MAC_SHA1]&odin=[ODIN1]&openudid=[OPEN_UDID]&site_id=[APP_ID]&udid=[UDID] \
---data-binary media_file="@sample.mp4"
+--form 'media_file=@sample.mp4'
+--form 'name=テスト動画' \
+--form 'platform=iOS' \
+--form 'click_url=http://hastrk3.com/serve?action=click' \
+--form 'postback_url=https://t.metaps.biz/v1/cpi/click?campaign_id=kojp-co-gu3-crystal-bc-ios5541d21507a2b3b612d487b149&network_id=18&device_id=[IDFA]&device_id_type=idfa&mac_sha1=[MAC_SHA1]&odin=[ODIN1]&openudid=[OPEN_UDID]&site_id=[APP_ID]&udid=[UDID]'
 ```
 
 ##### レスポンス
