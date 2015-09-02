@@ -277,17 +277,17 @@ URL: https://adcolony.glossom.jp/api/v1/campaigns
 | 名前 | 意味 | 必須 | サンプル |
 | ---- | ---- | ---- | -------- |
 | id | キャンペーンID | NO | 100 |
-| status | ステータス | NO | [キャンペーン状態シンボル](STATE.md) を参照 |
+| status | ステータス | NO | [キャンペーン状態一覧のシンボル](STATE.md) を参照 |
 | platform | プラットフォーム | NO | iOS or Android |
 | bid_type | 単価種別 | NO | cpi or cpcv |
 
 ##### リクエスト例
 
-curl -b cookie.txt https://adcolony.glossom.jp/api/v1/campaigns?status=delivery&platform=ios
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/campaigns?status=working&platform=ios
 
 #### レスポンス
 
-代理店/クライアントの持つキャンペーン一覧をjson形式で返します。
+キャンペーン一覧をjson形式で返します。
 
 jsonのsampleとデータ型に対する説明です。
 
@@ -299,7 +299,7 @@ Content-Type: application/json
   {
     "id": 137,                                   # キャンペーンID(ユニーク) INT型
     "name": "キャンペーン1",                     # キャンペーン名 String型(255文字まで)
-	"status": "delivery",                        # ステータス
+	"status": "working",                        # ステータス
 	"start_date": "2015-03-05",                  # 配信開始日
     "end_date": "2015-03-15",                    # 配信終了日
     "bid": 100,                                  # Bid(円)
@@ -307,13 +307,25 @@ Content-Type: application/json
     "total_budget": 10000000,                    # 全体予算上限(円)
     "daily_budget": 1000000,                     # 日予算上限(円)
     "platform": "Android",                       # プラットフォーム
+	"os": "Android",                             # 配信先OS
+    "device": [                                  # 配信デバイス(リスト)
+	  "Phone",
+	  "Tablet"
+	],
+    "country": "JP",                             # 配信国
+    "url": "https://play.google.com/store/apps/details?id=com.android.chrome", # ストアURL or クリック後遷移先URL
+    "tracking": [                                # トラッキングツール(リスト)
+	  "test",
+	  "test2"
+	],
+    "note": "test message",                      # 備考
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
   },
   {
     "id": 139,
     "name": "キャンペーン2",
-	"status": "staged",
+	"status": "passed",
 	"start_date": "2015-03-05",
     "end_date": "2015-03-25",
     "bid": 200,
@@ -321,6 +333,19 @@ Content-Type: application/json
     "total_budget": 20000000,
     "daily_budget": 2000000,
     "platform": "iOS",
+    "os": "iOS",
+	"device": [
+	  "iPad",
+	  "iPhone",
+	  "iPod"
+	],
+	"country": "US",
+    "url": "https://itunes.apple.com/jp/app/keynote/id361285480?mt=8"
+	"tracking": [
+	  "test",
+	  "test2"
+	],
+	"note": "test message",
     "created_at": "2015-03-05T05:00:19.000Z",
     "updated_at": "2015-03-05T05:20:19.000Z"
   }
@@ -488,7 +513,7 @@ POST
 | ---- | ---- | ---- | ---- | -------- |
 | campaign_id | キャンペーンID | YES | - | 掲載可否審査依頼APIで返したキャンペーンIDを、URLの`:campaign_id`に指定下さい。 |
 | creative_id | クリエイティブID | YES | - | 事前にクリエイティブアップロードAPIで返したクリエイティブIDを指定下さい。 |
-| cpi | 目標CPI(円) | YES | - | - |
+| goal | 目標 | YES | - | - |
 | total_budget | キャンペーン総予算(円) | YES | 600,000円以上 | 1000000 |
 | daily_budget | キャンペーン日予算(円) | YES | 20,000円以上 | 100000 |
 | start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
