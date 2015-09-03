@@ -6,15 +6,17 @@ AdColony配信実績取得用 API仕様書
 
 ## 1. API一覧
 
-* [アプリ一覧取得※1](#fetch_app)
-* [枠一覧取得※1](#fetch_zones)
-* [メディアレポート取得※1](#fetch_zone_report)
-* [キャンペーン一覧取得※1](#fetch_campaigns)
-* [クリエイティブアップロード※1](#upload_creative)
-* [掲載可否審査依頼※1](#judge_campaign)
-* [キャンペーン登録※1](#create_campaign)
-* [配信設定変更依頼※1](#update_campaign)
-* [配信設定変更取消※1](#cancel_campaign)
+* レポート系
+  * [アプリ一覧取得※1](#fetch_app)
+  * [枠一覧取得※1](#fetch_zones)
+  * [メディアレポート取得※1](#fetch_zone_report)
+  * [キャンペーン一覧取得※1](#fetch_campaigns)
+* キャンペーン操作系
+  * [クリエイティブアップロード※1](#upload_creative)
+  * [掲載可否審査依頼※1](#judge_campaign)
+  * [キャンペーン登録※1](#create_campaign)
+  * [配信設定変更依頼※1](#update_campaign)
+  * [配信設定変更取消※1](#cancel_campaign)
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
