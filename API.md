@@ -283,6 +283,8 @@ URL: https://adcolony.glossom.jp/api/v1/campaigns
 | status | ステータス | NO | [キャンペーン状態一覧のシンボル](STATE.md) を参照 |
 | platform | プラットフォーム | NO | iOS or Android |
 | bid_type | 単価種別 | NO | cpi or cpcv |
+| page | ページ番号(デフォルト: 1) | NO | 10 |
+| per_page | 1ページ当たりの件数(デフォルト: 20、最高: 100) | NO | 50 |
 
 ##### リクエスト例
 
@@ -375,6 +377,8 @@ URL: https://adcolony.glossom.jp/api/v1/creatives
 | ---- | ---- | ---- | -------- |
 | id | クリエイティブID | NO | 100 |
 | campaign_id | キャンペーンID | NO | 100 |
+| page | ページ番号(デフォルト: 1) | NO | 10 |
+| per_page | 1ページ当たりの件数(デフォルト: 20、最高: 100) | NO | 50 |
 
 ##### リクエスト例
 
