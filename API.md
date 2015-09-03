@@ -321,6 +321,10 @@ Content-Type: application/json
 	  "test2"
 	],
     "note": "test message",                      # 備考
+    "creative_id": [                             # クリエイティブID(リスト)
+      1000,
+      1001
+    ],
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
   },
@@ -340,13 +344,17 @@ Content-Type: application/json
 	  "iPad",
 	  "iPhone",
 	  "iPod"
-	],
+    ],
 	"country": "US",
     "url": "https://itunes.apple.com/jp/app/keynote/id361285480?mt=8"
 	"tracking": [
 	  "test",
 	  "test2"
 	],
+    "creative_id": [
+      1002,
+      1003
+    ],
 	"note": "test message",
     "created_at": "2015-03-05T05:00:19.000Z",
     "updated_at": "2015-03-05T05:20:19.000Z"
