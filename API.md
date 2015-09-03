@@ -365,7 +365,7 @@ Content-Type: application/json
 
 --
 
-### <a id="fetch_creatives"></a>4.5. クリエイティブ一覧取得
+### <a id="fetch_creatives"></a>4.6. クリエイティブ一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/creatives
 
@@ -416,7 +416,7 @@ Content-Type: application/json
 
 --
 
-### <a id="upload_creative"></a>4.6. クリエイティブアップロード
+### <a id="upload_creative"></a>4.7. クリエイティブアップロード
 
 URL: https://adcolony.glossom.jp/api/v1/camapigns/:campaign_id/creatives
 
@@ -482,7 +482,7 @@ Content-Type: application/json
 
 --
 
-### <a id="judge_campaign"></a>4.7. 掲載可否審査依頼
+### <a id="judge_campaign"></a>4.8. 掲載可否審査依頼
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
 
@@ -573,7 +573,7 @@ Content-Type: application/json
 
 --
 
-### <a id="create_campaign"></a>4.8. キャンペーン登録
+### <a id="create_campaign"></a>4.9. キャンペーン登録
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/:campaign_id
 
@@ -656,7 +656,7 @@ HTTP/1.1 200
 
 --
 
-### <a id="update_campaign"></a>4.9. 配信設定変更依頼
+### <a id="update_campaign"></a>4.10. 配信設定変更依頼
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/:camapign_id/change
 
@@ -739,7 +739,7 @@ HTTP/1.1 200
 
 --
 
-### <a id="cancel_campaign"></a>4.10. 配信設定変更取消
+### <a id="cancel_campaign"></a>4.11. 配信設定変更取消
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns/{camapign_id}/cancel
 
