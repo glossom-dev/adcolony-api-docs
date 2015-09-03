@@ -373,6 +373,7 @@ POST
 | name | ファイル名 | YES | 128文字以内 |
 | platform | プラットフォーム | YES | "iOS" or "Android" |
 | media_file | メディアファイル | YES | sample.mp4 |
+| md5 | メディアファイルのmd5 | YES | - |
 | click_url | クリックURL | YES | 512文字以内 |
 | postback_url | ポストバックURL | YES | 512文字以内 |
 
@@ -402,6 +403,7 @@ curl https://adcolony.glossom.jp/api/v1/creatives \
 --form 'media_file=@sample.mp4'
 --form 'name=テスト動画' \
 --form 'platform=iOS' \
+--form 'md5=3d24dbf8256dfa6b7eecb5e9ac21f148' \
 --form 'click_url=http://example.com/click?action=xxx' \
 --form 'postback_url=https://postback.example.com/click?campaign_id=xx'
 ```
