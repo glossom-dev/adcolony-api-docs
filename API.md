@@ -11,6 +11,7 @@ AdColony配信実績取得用 API仕様書
   * [枠一覧取得※1](#fetch_zones)
   * [メディアレポート取得※1](#fetch_zone_report)
   * [キャンペーン一覧取得※1](#fetch_campaigns)
+  * [クリエイティブ一覧取得※1](#fetch_creatives)
 * キャンペーン操作系
   * [クリエイティブアップロード※1](#upload_creative)
   * [掲載可否審査依頼※1](#judge_campaign)
@@ -356,6 +357,57 @@ Content-Type: application/json
       1003
     ],
 	"note": "test message",
+    "created_at": "2015-03-05T05:00:19.000Z",
+    "updated_at": "2015-03-05T05:20:19.000Z"
+  }
+}
+```
+
+--
+
+### <a id="fetch_creatives"></a>4.5. クリエイティブ一覧取得
+
+URL: https://adcolony.glossom.jp/api/v1/creatives
+
+#### リクエストパラメータ
+
+| 名前 | 意味 | 必須 | サンプル |
+| ---- | ---- | ---- | -------- |
+| id | クリエイティブID | NO | 100 |
+| campaign_id | キャンペーンID | NO | 100 |
+
+##### リクエスト例
+
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/creatives?campaign_id=1000
+
+#### レスポンス
+
+クリエイティブ一覧をjson形式で返します。
+
+jsonのsampleとデータ型に対する説明です。
+
+```
+HTTP/1.1 200
+Content-Type: application/json
+
+{
+  {
+    "id": 137,                                   	 					 # クリエイティブID(ユニーク) INT型
+    "name": "クリエイティブ1",                   						 # クリエイティブ名 String型(255文字まで)
+    "campaign_id": 1000,                                                 # キャンペーンID
+    "click_url": "http://example.com/click?action=xxx",                  # クリックURL
+    "postback_url": "https://postback.example.com/click?campaign_id=xx", # ポストバックURL
+	"md5": "3d24dbf8256dfa6b7eecb5e9ac21f148"                            # メディアファイルのmd5
+    "created_at": "2015-03-05T05:00:19.000Z",    						 # 作成日時(UTC) DateTime型
+    "updated_at": "2015-03-05T05:20:19.000Z"     						 # 更新日時(UTC) DateTime型
+  },
+  {
+    "id": 138,
+    "name": "クリエイティブ2",
+    "campaign_id": 1000,
+    "click_url": "http://example.com/click?action=yyy",
+    "postback_url": "https://postback.example.com/click?campaign_id=yy",
+	"md5": "f882cea8c124ad3f2ddf7b3b71f70538"
     "created_at": "2015-03-05T05:00:19.000Z",
     "updated_at": "2015-03-05T05:20:19.000Z"
   }
