@@ -366,7 +366,7 @@ Content-Type: application/json
 
 ### <a id="upload_creative"></a>4.6. クリエイティブアップロード
 
-URL: https://adcolony.glossom.jp/api/v1/creatives
+URL: https://adcolony.glossom.jp/api/v1/camapigns/:campaign_id/creatives
 
 クリエイティブをアップロードすることが出来ます。
 
@@ -378,6 +378,7 @@ POST
 
 | 名前 | 意味 | 必須 | 仕様 |
 | -------- | ---- | ---- | ---- | ---- |
+| campaign_id | キャンペーンID | YES | 掲載可否審査依頼APIで返したキャンペーンIDを、URLの`:campaign_id`に指定下さい。 |
 | name | ファイル名 | YES | 128文字以内 |
 | platform | プラットフォーム | YES | "iOS" or "Android" |
 | media_file | メディアファイル | YES | sample.mp4 |
@@ -405,7 +406,7 @@ POST
 事前にメディアファイルを用意しておく必要があります。
 
 ```
-curl https://adcolony.glossom.jp/api/v1/creatives \
+curl https://adcolony.glossom.jp/api/v1/campaigns/100/creatives \
 -b cookie.txt \
 --request POST \
 --form 'media_file=@sample.mp4'
