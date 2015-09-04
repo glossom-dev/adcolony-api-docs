@@ -440,7 +440,7 @@ POST
 | media_file | メディアファイル | YES | sample.mp4 |
 | md5 | メディアファイルのmd5 | YES | - |
 | click_url | クリックURL | YES | 512文字以内 |
-| postback_url | ポストバックURL | YES | 512文字以内 |
+| postback_url | ポストバックURL | NO | 512文字以内 |
 
 #### レスポンス
 
