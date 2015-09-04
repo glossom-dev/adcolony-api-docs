@@ -318,6 +318,7 @@ Content-Type: application/json
 	  "Tablet"
 	],
     "country": "JP",                             # 配信国
+    "country_limit": 1,                          # アプリの地域（国）制限フラグ
     "url": "https://play.google.com/store/apps/details?id=com.android.chrome", # ストアURL or クリック後遷移先URL
     "tracking": [                                # トラッキングツール(リスト)
 	  "test",
@@ -349,6 +350,7 @@ Content-Type: application/json
 	  "iPod"
     ],
 	"country": "US",
+    "country_limit": 0,
     "url": "https://itunes.apple.com/jp/app/keynote/id361285480?mt=8"
 	"tracking": [
 	  "test",
@@ -641,6 +643,7 @@ sample.json
     "iPhone"
   ],
   "country": "JP",
+  "country_limit": 1,
   "note": "test"
 }
 ```
@@ -698,6 +701,7 @@ PUT
 | os | 配信OS指定 | NO | "iOS" or "Android" | |
 | device | 配信デバイス指定 | NO | iOS: "iPad / iPhone / iPod, Andrid: Phone / Tablet" | 複数指定可 |
 | country | 配信国指定 | NO | "JP" or "US" | |
+| country_limit | アプリの地域（国）制限フラグ | NO | 1: あり(US非対応)、0: なし | 1 |
 | note | 備考 | NO | 255文字以下 | 希望等あればご利用ください |
 
 下記の値で登録情報を上書きするため、変更情報としては差分ではなく、変更後の値をリクエストして下さい。  
