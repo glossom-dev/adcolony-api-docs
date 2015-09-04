@@ -13,7 +13,6 @@
 | disapproved | 掲載NG |
 | checking | 審査中 |
 | setting | 設定中 |
-| configured | 設定完了 |
 | testing | テスト中 |
 | preparing | 本番設定中 |
 | working | 配信中 |
