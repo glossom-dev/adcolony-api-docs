@@ -20,7 +20,7 @@
 | closed | 配信終了 |
 | editing | 設定変更中 |
 | changing | 設定変更反映中 |
-| reusing | 設定再利用中 |
+| reusing | 配信再開中 |
 
 ### 状態遷移図
 
