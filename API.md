@@ -603,6 +603,7 @@ POST
 | os | 配信OS指定 | YES | "iOS" or "Android" | |
 | device | 配信デバイス指定 | NO | iOS: "iPad / iPhone / iPod, Andrid: Phone / Tablet" | 複数指定可 |
 | country | 配信国指定 | YES | "JP" or "US" | |
+| country_limit | アプリの地域（国）制限フラグ | YES | 1: あり(US非対応)、0: なし | 1 |
 | note | 備考 | NO | 255文字以下 | 希望等あればご利用ください |
 
 #### レスポンス
