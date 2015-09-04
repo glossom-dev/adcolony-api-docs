@@ -593,16 +593,16 @@ POST
 | ---- | ---- | ---- | ---- | -------- |
 | campaign_id | キャンペーンID | YES | - | 掲載可否審査依頼APIで返したキャンペーンIDを、URLの`:campaign_id`に指定下さい。 |
 | creative_id | クリエイティブID | YES | - | 事前にクリエイティブアップロードAPIで返したクリエイティブIDを指定下さい。 |
-| total_budget | キャンペーン総予算(円) | YES | 600,000円以上 | 1000000 |
-| daily_budget | キャンペーン日予算(円) | YES | 20,000円以上 | 100000 |
-| start_date | キャンペーン開始日時 | YES | YYYY/MM/DD | 2015/04/01 |
-| end_date | キャンペーン終了日時 | YES | YYYY/MM/DD | 2015/12/31 |
+| total_budget | キャンペーン総予算(円) | NO | 600,000円以上 | 1000000 |
+| daily_budget | キャンペーン日予算(円) | NO | 20,000円以上 | 100000 |
+| start_date | キャンペーン開始日時 | NO | YYYY/MM/DD | 2015/04/01 |
+| end_date | キャンペーン終了日時 | NO | YYYY/MM/DD | 2015/12/31 |
 | bid | 単価 | YES | 単位は円、少数点x位以下は切り捨て。| 100 |
 | bid_type | 単価種別 | YES | "cpi" or "cpcv" | cpi |
-| tracking | トラッキングツール | YES | xxx文字以下 | 複数指定可 |
-| os | 配信OS指定 | NO | "iOS" or "Android" | |
+| tracking | トラッキングツール | NO | xxx文字以下 | 複数指定可 |
+| os | 配信OS指定 | YES | "iOS" or "Android" | |
 | device | 配信デバイス指定 | NO | iOS: "iPad / iPhone / iPod, Andrid: Phone / Tablet" | 複数指定可 |
-| country | 配信国指定 | NO | "JP" or "US" | |
+| country | 配信国指定 | YES | "JP" or "US" | |
 | note | 備考 | NO | 255文字以下 | 希望等あればご利用ください |
 
 #### レスポンス
