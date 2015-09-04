@@ -10,9 +10,9 @@ AdColony配信実績取得用 API仕様書
   * [アプリ一覧取得※1](#fetch_app)
   * [枠一覧取得※1](#fetch_zones)
   * [メディアレポート取得※1](#fetch_zone_report)
+* キャンペーン系
   * [キャンペーン一覧取得※1](#fetch_campaigns)
   * [クリエイティブ一覧取得※1](#fetch_creatives)
-* キャンペーン操作系
   * [クリエイティブアップロード※1](#upload_creative)
   * [掲載可否審査依頼※1](#judge_campaign)
   * [キャンペーン登録※1](#create_campaign)
