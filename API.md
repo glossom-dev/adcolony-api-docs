@@ -8,6 +8,7 @@ AdColony配信実績取得用 API仕様書
 
 * アプリ一覧取得 ※1
 * 枠一覧取得 ※1
+* キャンペーン一覧取得 ※1
 * メディアレポート取得 ※1
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
@@ -179,6 +180,41 @@ jsonのsampleとデータ型に対する説明です。
 ```
 
 ### 4.4. メディアレポート取得
+### 4.4. キャンペーン一覧取得
+
+URL: https://adcolony.glossom.jp/api/v1/campaigns
+
+#### リクエストパラメータ
+
+特に無し
+
+##### リクエスト例
+
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/campaigns
+
+#### レスポンス
+
+広告主の持つキャンペーン一覧をjson形式で返します。
+
+jsonのsampleとデータ型に対する説明です。
+
+```
+{
+  {
+    "id": 100,                                   # キャンペーンID(ユニーク) INT型
+    "name": "テスト",                            # キャンペーン名(adcolony側)  String型(255文字まで)
+    "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
+    "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
+  },
+  {
+    "id": 101,
+    "name": "テスト2",
+    "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
+    "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
+  }
+}
+```
+
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
