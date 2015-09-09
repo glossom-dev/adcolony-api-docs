@@ -326,7 +326,6 @@ jsonのsampleとデータ型に対する説明です。
 ```
 {
   "2014-12-31": {            # 発生した日付 yyyy-mm-dd のDate型
-    "spend_dollar": 130.47,  # 消化金額(ドル) Float型
     "spend_yen": 15395.46,   # 消化金額(円) Float型
     "impressions": 100,      # 広告表示回数 INT型
     "cvvs": 147,             # 動画視聴完了数 INT型
@@ -337,7 +336,6 @@ jsonのsampleとデータ型に対する説明です。
     "cpi": 332.88            # CPI(円) Float型
   },
   "2014-12-30": {
-    "spend_dollar": 130.47,
     "spend_yen": 15395.46,
     "impressions": 100,
     "cvvs": 147,
@@ -348,7 +346,6 @@ jsonのsampleとデータ型に対する説明です。
     "cpi": 332.88
   },
   "total": {
-    "spend_dollar": 130.47,
     "spend_yen": 15395.46,
     "impressions": 100,
     "cvvs": 147,
