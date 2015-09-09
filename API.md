@@ -353,6 +353,13 @@ INT型
 
 キャンペーンIDは「キャンペーン一覧取得」から取得してください。
 
+##### group_id
+INT型
+
+取得したい対象のグループIDが入ります。
+
+枠IDは「グループ一覧取得」から取得してください。
+
 ##### リクエスト例
 
 curl -b cookie.txt -XGET -d month=2014/12 https://adcolony.glossom.jp/api/v1/advertiser/reports
