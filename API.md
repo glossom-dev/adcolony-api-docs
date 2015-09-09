@@ -9,6 +9,7 @@ AdColony配信実績取得用 API仕様書
 * アプリ一覧取得 ※1
 * 枠一覧取得 ※1
 * キャンペーン一覧取得 ※1
+* グループ一覧取得 ※1
 * メディアレポート取得 ※1
 * キャンペーンレポート取得 ※1
 
@@ -209,6 +210,43 @@ jsonのsampleとデータ型に対する説明です。
   {
     "id": 101,
     "name": "test2",
+    "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
+    "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
+  }
+}
+```
+
+### 4.4. グループ一覧取得
+
+URL: https://adcolony.glossom.jp/api/v1/groups
+
+#### リクエストパラメータ
+
+特に無し
+
+##### リクエスト例
+
+curl -b cookie.txt https://adcolony.glossom.jp/api/v1/groups
+
+#### レスポンス
+
+広告主の持つグループ一覧をjson形式で返します。
+
+jsonのsampleとデータ型に対する説明です。
+
+```
+{
+  {
+    "id": 100,                                   # グループID(ユニーク) INT型
+    "campaign_id": 1054,                         # キャンペーンID INT型
+    "name": "test",                              # グループ名(adcolony側)  String型(255文字まで)
+    "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
+    "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
+  },
+  {
+    "id": 101,                                   # グループID(ユニーク) INT型
+    "campaign_id": 1090,                         # キャンペーンID INT型
+    "name": "test",                              # グループ名(adcolony側)  String型(255文字まで)
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
   }
