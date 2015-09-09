@@ -203,15 +203,17 @@ jsonのsampleとデータ型に対する説明です。
 {
   {
     "id": 100,                                   # キャンペーンID(ユニーク) INT型
+    "account_id": 1,                             # アカウントID INT型
     "name": "test",                              # キャンペーン名(adcolony側)  String型(255文字まで)
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
   },
   {
     "id": 101,
+    "account_id": 1,
     "name": "test2",
-    "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
-    "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
+    "created_at": "2015-03-05T05:00:19.000Z",
+    "updated_at": "2015-03-05T05:20:19.000Z"
   }
 }
 ```
