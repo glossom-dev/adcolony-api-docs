@@ -202,13 +202,13 @@ jsonのsampleとデータ型に対する説明です。
 {
   {
     "id": 100,                                   # キャンペーンID(ユニーク) INT型
-    "name": "テスト",                            # キャンペーン名(adcolony側)  String型(255文字まで)
+    "name": "test",                              # キャンペーン名(adcolony側)  String型(255文字まで)
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
   },
   {
     "id": 101,
-    "name": "テスト2",
+    "name": "test2",
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
   }
