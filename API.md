@@ -332,8 +332,8 @@ jsonのsampleとデータ型に対する説明です。
     "cvvs": 147,             # 動画視聴完了数 INT型
     "clicks": 1000,          # クリック数 INT型
     "installs": 100,         # インストール数 INT型
-    "ctr": 0.85              # CTR Float型
-    "cvr": 26.85             # CVR Float型
+    "ctr": 0.85,             # CTR Float型
+    "cvr": 26.85,            # CVR Float型
     "cpi": 332.88            # CPI(円) Float型
   },
   "2014-12-30": {
@@ -343,8 +343,8 @@ jsonのsampleとデータ型に対する説明です。
     "cvvs": 147,
     "clicks": 1000,
     "installs": 100,
-    "ctr": 0.85
-    "cvr": 26.85
+    "ctr": 0.85,
+    "cvr": 26.85,
     "cpi": 332.88
   },
   "total": {
@@ -354,8 +354,8 @@ jsonのsampleとデータ型に対する説明です。
     "cvvs": 147,
     "clicks": 1000,
     "installs": 100,
-    "ctr": 0.85
-    "cvr": 26.85
+    "ctr": 0.85,
+    "cvr": 26.85,
     "cpi": 332.88
   }
 }
