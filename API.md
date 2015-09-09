@@ -10,6 +10,7 @@ AdColony配信実績取得用 API仕様書
 * 枠一覧取得 ※1
 * キャンペーン一覧取得 ※1
 * メディアレポート取得 ※1
+* キャンペーンレポート取得 ※1
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
@@ -282,6 +283,80 @@ jsonのsampleとデータ型に対する説明です。
     "clicks": 33,
     "fill_rate": "102.04",
     "ecpm": "147.63"
+  }
+}
+```
+
+### 4.5. キャンペーンレポート取得
+
+URL: https://adcolony.glossom.jp/api/v1/advertiser/reports
+
+広告主向け日別レポート情報が取得できます。
+
+#### リクエストパラメータ
+
+すべてGETで指定してください。
+
+##### month
+
+* yyyy/mmの日付形式 例 2015/05
+* yyyy/mm/ddの日付形式 例 2015/05/01 ※ ddは解釈されません
+* yyyy-mm-ddの日付形式 例 2015-05-01 ※ ddは解釈されません
+
+取得したい対象月を指定します。
+
+##### campaign_id
+
+INT型
+
+取得したい対象のキャンペーンIDが入ります。
+
+キャンペーンIDは「キャンペーン一覧取得」から取得してください。
+
+##### リクエスト例
+
+curl -b cookie.txt -XGET -d month=2014/12 https://adcolony.glossom.jp/api/v1/advertiser/reports
+
+#### レスポンス
+
+広告主向け日別レポート情報をjson形式で返します。
+
+jsonのsampleとデータ型に対する説明です。
+
+```
+{
+  "2014-12-31": {            # 発生した日付 yyyy-mm-dd のDate型
+    "spend_dollar": 130.47,  # 消化金額(ドル) Float型
+    "spend_yen": 15395.46,   # 消化金額(円) Float型
+    "impressions": 100,      # 広告表示回数 INT型
+    "cvvs": 147,             # 動画視聴完了数 INT型
+    "clicks": 1000,          # クリック数 INT型
+    "installs": 100,         # インストール数 INT型
+    "ctr": 0.85              # CTR Float型
+    "cvr": 26.85             # CVR Float型
+    "cpi": 332.88            # CPI(円) Float型
+  },
+  "2014-12-30": {
+    "spend_dollar": 130.47,
+    "spend_yen": 15395.46,
+    "impressions": 100,
+    "cvvs": 147,
+    "clicks": 1000,
+    "installs": 100,
+    "ctr": 0.85
+    "cvr": 26.85
+    "cpi": 332.88
+  },
+  "total": {
+    "spend_dollar": 130.47,
+    "spend_yen": 15395.46,
+    "impressions": 100,
+    "cvvs": 147,
+    "clicks": 1000,
+    "installs": 100,
+    "ctr": 0.85
+    "cvr": 26.85
+    "cpi": 332.88
   }
 }
 ```
