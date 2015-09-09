@@ -180,7 +180,6 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.4. メディアレポート取得
 ### 4.4. キャンペーン一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
@@ -216,6 +215,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
+### 4.5. メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
@@ -287,7 +287,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.5. キャンペーンレポート取得
+### 4.6. キャンペーンレポート取得
 
 URL: https://adcolony.glossom.jp/api/v1/advertiser/reports
 
