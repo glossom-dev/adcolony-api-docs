@@ -79,7 +79,7 @@ HTTP Status Codeは以下を意味します
 
 ## 4. API 詳細仕様
 
-### 4.1. ログイン
+### ログイン
 URL: https://adcolony.glossom.jp/api/v1/users/sign_in
 
 ログインユーザーの情報とクッキーが取得できます。
@@ -107,7 +107,7 @@ curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS https://adcolony.
 {"errors":[{"message":"セッションがタイムアウトしました。もう一度ログインしてください。"}]}
 ```
 
-### 4.2. アプリ一覧取得
+### アプリ一覧取得
 URL: https://adcolony.glossom.jp/api/v1/apps
 
 メディアの持つアプリ一覧が取得できます。
@@ -145,7 +145,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.3. 枠一覧取得
+### 枠一覧取得
 URL: https://adcolony.glossom.jp/api/v1/zones
 
 #### リクエストパラメータ
@@ -181,7 +181,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.4. キャンペーン一覧取得
+### キャンペーン一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
 
@@ -216,7 +216,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.4. グループ一覧取得
+### グループ一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/groups
 
@@ -253,7 +253,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.5. メディアレポート取得
+### メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
@@ -325,7 +325,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 4.6. キャンペーンレポート取得
+### キャンペーンレポート取得
 
 URL: https://adcolony.glossom.jp/api/v1/advertiser/reports
 
