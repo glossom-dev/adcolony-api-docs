@@ -6,12 +6,12 @@ AdColony配信実績取得用 API仕様書
 
 ## 1. API一覧
 
-* アプリ一覧取得 ※1
-* 枠一覧取得 ※1
-* キャンペーン一覧取得 ※1
-* グループ一覧取得 ※1
-* メディアレポート取得 ※1
-* キャンペーンレポート取得 ※1
+* [アプリ一覧取得 ※1](#fetch_app)
+* [枠一覧取得 ※1](#fetch_zones)
+* [キャンペーン一覧取得 ※1](#fetch_campaigns)
+* [グループ一覧取得 ※1](#fetch_groups)
+* [メディアレポート取得 ※1](#fetch_zone_report)
+* [キャンペーンレポート取得 ※1](#fetch_campaign_report)
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
@@ -107,7 +107,7 @@ curl -c cookie.txt -d user[email]=EMAIL -d user[password]=PASS https://adcolony.
 {"errors":[{"message":"セッションがタイムアウトしました。もう一度ログインしてください。"}]}
 ```
 
-### アプリ一覧取得
+### <a id="fetch_app"></a>アプリ一覧取得
 URL: https://adcolony.glossom.jp/api/v1/apps
 
 メディアの持つアプリ一覧が取得できます。
@@ -145,7 +145,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### 枠一覧取得
+### <a id="fetch_zones"></a>枠一覧取得
 URL: https://adcolony.glossom.jp/api/v1/zones
 
 #### リクエストパラメータ
@@ -181,7 +181,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### キャンペーン一覧取得
+### <a id="fetch_campaigns"></a>キャンペーン一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
 
@@ -218,7 +218,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### グループ一覧取得
+### <a id="fetch_groups"></a>グループ一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/groups
 
@@ -255,7 +255,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### メディアレポート取得
+### <a id="fetch_zone_report"></a>メディアレポート取得
 URL: https://adcolony.glossom.jp/api/v1/publisher/reports
 
 メディア向け日別レポート情報が取得できます。
@@ -327,7 +327,7 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
-### キャンペーンレポート取得
+### <a id="fetch_campaign_report"></a>キャンペーンレポート取得
 
 URL: https://adcolony.glossom.jp/api/v1/advertiser/reports
 
