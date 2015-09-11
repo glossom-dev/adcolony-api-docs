@@ -343,7 +343,8 @@ URL: https://adcolony.glossom.jp/api/v1/advertiser/reports
 
 すべてGETで指定してください。
 
-なお、`campaign_id` と `group_id` は 並用出来ません。よって、`campaign_id` を指定した場合、`group_id` を指定しても無視されます。
+なお、`campaign_id` と `group_id` を同時に指定した場合、`group_id` が検索条件として採用されます。  
+また、`per_page` に`1`を指定した場合、該当日の結果に、`total`の結果を付与した形で返却されます。  
 
 | 名前 | 意味 | 必須 | サンプル |
 | ---- | ---- | ---- | -------- |
@@ -394,6 +395,23 @@ jsonのsampleとデータ型に対する説明です。
     "ctr": "0.85",
     "cvr": "26.85",
     "cpi": "332.88"
+  }
+}
+```
+
+配信結果が存在しない場合、以下のレスポンスを返却します。
+
+```
+{
+  "total": {
+    "spend_yen": "0.0",
+    "impressions": 0,
+    "cvvs": 0,
+    "clicks": 0,
+    "installs": 0,
+    "ctr": "0.0",
+    "cvr": "0.0",
+    "cpi": "0.0"
   }
 }
 ```
