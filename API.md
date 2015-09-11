@@ -304,7 +304,7 @@ jsonのsampleとデータ型に対する説明です。
 ```
 {
   "2014-12-31": {            # 発生した日付 yyyy-mm-dd のDate型
-    "earnings_yen": "8.14",  # 収益(円) Float型
+    "earnings_yen": "800",   # 収益(円) INT型
     "requests": 172,         # 広告リクエスト数 INT型
     "impressions": 175,      # 広告表示回数 INT型
     "cvvs": 147,             # 動画視聴完了数 INT型
@@ -313,7 +313,7 @@ jsonのsampleとデータ型に対する説明です。
     "ecpm": "55.38"          # eCPM(円) Float型
   },
   "2014-12-30": {
-    "earnings_yen": "13.70",
+    "earnings_yen": "1370",
     "requests": 257,
     "impressions": 264,
     "cvvs": 238,
@@ -322,7 +322,7 @@ jsonのsampleとデータ型に対する説明です。
     "ecpm": "57.56"
   },
   "total": {
-    "earnings_yen": "630.00",
+    "earnings_yen": "630",
     "requests": 4616,
     "impressions": 4710,
     "cvvs": 4264,
@@ -367,7 +367,7 @@ jsonのsampleとデータ型に対する説明です。
 ```
 {
   "2014-12-31": {            # 発生した日付 yyyy-mm-dd のDate型
-    "spend_yen": "15395.46", # 消化金額(円) Float型
+    "spend_yen": "15395",    # 消化金額(円) INT型
     "impressions": 100,      # 広告表示回数 INT型
     "cvvs": 147,             # 動画視聴完了数 INT型
     "clicks": 1000,          # クリック数 INT型
@@ -377,7 +377,7 @@ jsonのsampleとデータ型に対する説明です。
     "cpi": "332.88"          # CPI(円) Float型
   },
   "2014-12-30": {
-    "spend_yen": "15395.462,
+    "spend_yen": "20000",
     "impressions": 100,
     "cvvs": 147,
     "clicks": 1000,
@@ -387,7 +387,7 @@ jsonのsampleとデータ型に対する説明です。
     "cpi": "332.88"
   },
   "total": {
-    "spend_yen": "15395.46",
+    "spend_yen": "35395",
     "impressions": 100,
     "cvvs": 147,
     "clicks": 1000,
@@ -404,7 +404,7 @@ jsonのsampleとデータ型に対する説明です。
 ```
 {
   "total": {
-    "spend_yen": "0.0",
+    "spend_yen": "0",
     "impressions": 0,
     "cvvs": 0,
     "clicks": 0,
