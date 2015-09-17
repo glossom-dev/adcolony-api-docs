@@ -303,17 +303,17 @@ jsonのsampleとデータ型に対する説明です。
 
 ```
 {
-  "2014-12-31": {            # 発生した日付 yyyy-mm-dd のDate型
-    "earnings_yen": "800",   # 収益(円) INT型
-    "requests": 172,         # 広告リクエスト数 INT型
-    "impressions": 175,      # 広告表示回数 INT型
-    "cvvs": 147,             # 動画視聴完了数 INT型
-    "clicks": 1,             # クリック数 INT型
-    "fill_rate": "101.74",   # Fill Rate(%) Float型
-    "ecpm": "55.38"          # eCPM(円) Float型
+  "2014-12-31": {             # 発生した日付 yyyy-mm-dd のDate型
+    "earnings_yen": "800.23", # 収益(円) 小数点第三位以下を四捨五入
+    "requests": 172,          # 広告リクエスト数 INT型
+    "impressions": 175,       # 広告表示回数 INT型
+    "cvvs": 147,              # 動画視聴完了数 INT型
+    "clicks": 1,              # クリック数 INT型
+    "fill_rate": "101.74",    # Fill Rate(%) Float型
+    "ecpm": "55.38"           # eCPM(円) Float型
   },
   "2014-12-30": {
-    "earnings_yen": "1370",
+    "earnings_yen": "1370.23",
     "requests": 257,
     "impressions": 264,
     "cvvs": 238,
