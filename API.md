@@ -415,3 +415,7 @@ jsonのsampleとデータ型に対する説明です。
   }
 }
 ```
+
+## 改定履歴
+
+[CHANGELOG](CHANGELOG.md)を参照
