@@ -322,7 +322,7 @@ jsonのsampleとデータ型に対する説明です。
     "ecpm": "57.56"
   },
   "total": {
-    "earnings_yen": "630",
+    "earnings_yen": "630",    # 収益合算値(円) 小数点第一位以下を四捨五入)
     "requests": 4616,
     "impressions": 4710,
     "cvvs": 4264,
@@ -387,7 +387,7 @@ jsonのsampleとデータ型に対する説明です。
     "cpi": "332.88"
   },
   "total": {
-    "spend_yen": "35395",
+    "spend_yen": "35395",    # 消化金額合算値(円) 小数点第一位以下を四捨五入)
     "impressions": 100,
     "cvvs": 147,
     "clicks": 1000,
