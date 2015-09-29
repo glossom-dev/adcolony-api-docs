@@ -6,12 +6,17 @@ AdColony配信実績取得用 API仕様書
 
 ## 1. API一覧
 
-* [アプリ一覧取得 ※1](#fetch_app)
-* [枠一覧取得 ※1](#fetch_zones)
-* [キャンペーン一覧取得 ※1](#fetch_campaigns)
-* [グループ一覧取得 ※1](#fetch_groups)
-* [メディアレポート取得 ※1](#fetch_zone_report)
-* [キャンペーンレポート取得 ※1](#fetch_campaign_report)
+### Publisher様向けAPI
+
+- [アプリ一覧取得 ※1](#fetch_app)
+- [枠一覧取得 ※1](#fetch_zones)
+- [メディアレポート取得 ※1](#fetch_zone_report)
+
+### 広告代理店/広告主様向けAPI
+
+- [キャンペーン一覧取得 ※1](#fetch_campaigns)
+- [グループ一覧取得 ※1](#fetch_groups)
+- [キャンペーンレポート取得 ※1](#fetch_campaign_report)
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
@@ -180,6 +185,79 @@ jsonのsampleとデータ型に対する説明です。
 }
 ```
 
+
+### <a id="fetch_zone_report"></a>メディアレポート取得
+URL: https://adcolony.glossom.jp/api/v1/publisher/reports
+
+メディア向け日別レポート情報が取得できます。
+
+#### リクエストパラメータ
+
+すべてGETで指定してください。
+
+##### month
+* yyyy/mmの日付形式 例 2015/05
+* yyyy/mm/ddの日付形式 例 2015/05/01 ※ ddは解釈されません
+* yyyy-mm-ddの日付形式 例 2015-05-01 ※ ddは解釈されません
+
+取得したい対象月を指定します。
+
+##### app_id
+INT型
+
+取得したい対象のアプリIDが入ります。
+
+アプリIDは「アプリ一覧取得」から取得してください。
+
+##### zone_id
+INT型
+
+取得したい対象の枠IDが入ります。
+
+枠IDは「枠一覧取得」から取得してください。
+
+##### リクエスト例
+
+curl -b cookie.txt -XGET -d month=2014/12 https://adcolony.glossom.jp/api/v1/publisher/reports
+
+#### レスポンス
+
+メディア向け日別レポート情報をjson形式で返します。
+
+jsonのsampleとデータ型に対する説明です。
+
+```
+{
+  "2014-12-31": {             # 発生した日付 yyyy-mm-dd のDate型
+    "earnings_yen": "800.23", # 収益(円) 小数点第三位以下を四捨五入
+    "requests": 172,          # 広告リクエスト数 INT型
+    "impressions": 175,       # 広告表示回数 INT型
+    "cvvs": 147,              # 動画視聴完了数 INT型
+    "clicks": 1,              # クリック数 INT型
+    "fill_rate": "101.74",    # Fill Rate(%) Float型
+    "ecpm": "55.38"           # eCPM(円) Float型
+  },
+  "2014-12-30": {
+    "earnings_yen": "1370.23",
+    "requests": 257,
+    "impressions": 264,
+    "cvvs": 238,
+    "clicks": 1,
+    "fill_rate": "102.72",
+    "ecpm": "57.56"
+  },
+  "total": {
+    "earnings_yen": "630.90", # 収益合算値(円) 小数点第三位以下を四捨五入)
+    "requests": 4616,
+    "impressions": 4710,
+    "cvvs": 4264,
+    "clicks": 33,
+    "fill_rate": "102.04",
+    "ecpm": "147.63"
+  }
+}
+```
+
 ### <a id="fetch_campaigns"></a>キャンペーン一覧取得
 
 URL: https://adcolony.glossom.jp/api/v1/campaigns
@@ -256,78 +334,6 @@ jsonのsampleとデータ型に対する説明です。
     "name": "test",                              # グループ名(adcolony側)  String型(255文字まで)
     "created_at": "2015-03-05T05:00:19.000Z",    # 作成日時(UTC) DateTime型
     "updated_at": "2015-03-05T05:20:19.000Z"     # 更新日時(UTC) DateTime型
-  }
-}
-```
-
-### <a id="fetch_zone_report"></a>メディアレポート取得
-URL: https://adcolony.glossom.jp/api/v1/publisher/reports
-
-メディア向け日別レポート情報が取得できます。
-
-#### リクエストパラメータ
-
-すべてGETで指定してください。
-
-##### month
-* yyyy/mmの日付形式 例 2015/05
-* yyyy/mm/ddの日付形式 例 2015/05/01 ※ ddは解釈されません
-* yyyy-mm-ddの日付形式 例 2015-05-01 ※ ddは解釈されません
-
-取得したい対象月を指定します。
-
-##### app_id
-INT型
-
-取得したい対象のアプリIDが入ります。
-
-アプリIDは「アプリ一覧取得」から取得してください。
-
-##### zone_id
-INT型
-
-取得したい対象の枠IDが入ります。
-
-枠IDは「枠一覧取得」から取得してください。
-
-##### リクエスト例
-
-curl -b cookie.txt -XGET -d month=2014/12 https://adcolony.glossom.jp/api/v1/publisher/reports
-
-#### レスポンス
-
-メディア向け日別レポート情報をjson形式で返します。
-
-jsonのsampleとデータ型に対する説明です。
-
-```
-{
-  "2014-12-31": {             # 発生した日付 yyyy-mm-dd のDate型
-    "earnings_yen": "800.23", # 収益(円) 小数点第三位以下を四捨五入
-    "requests": 172,          # 広告リクエスト数 INT型
-    "impressions": 175,       # 広告表示回数 INT型
-    "cvvs": 147,              # 動画視聴完了数 INT型
-    "clicks": 1,              # クリック数 INT型
-    "fill_rate": "101.74",    # Fill Rate(%) Float型
-    "ecpm": "55.38"           # eCPM(円) Float型
-  },
-  "2014-12-30": {
-    "earnings_yen": "1370.23",
-    "requests": 257,
-    "impressions": 264,
-    "cvvs": 238,
-    "clicks": 1,
-    "fill_rate": "102.72",
-    "ecpm": "57.56"
-  },
-  "total": {
-    "earnings_yen": "630.90", # 収益合算値(円) 小数点第三位以下を四捨五入)
-    "requests": 4616,
-    "impressions": 4710,
-    "cvvs": 4264,
-    "clicks": 33,
-    "fill_rate": "102.04",
-    "ecpm": "147.63"
   }
 }
 ```
