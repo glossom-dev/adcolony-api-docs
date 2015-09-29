@@ -350,6 +350,7 @@ URL: https://adcolony.glossom.jp/api/v1/advertiser/reports
 
 なお、`campaign_id` と `group_id` を同時に指定した場合、`group_id` が検索条件として採用されます。  
 また、`per_page` に`1`を指定した場合、該当日の結果に、`total`の結果を付与した形で返却されます。  
+`month` を省略した場合、リクエスト当月のレポート結果を返却します。
 
 | 名前 | 意味 | 必須 | サンプル |
 | ---- | ---- | ---- | -------- |
