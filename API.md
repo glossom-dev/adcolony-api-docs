@@ -353,9 +353,9 @@ URL: https://adcolony.glossom.jp/api/v1/advertiser/reports
 
 | 名前 | 意味 | 必須 | サンプル |
 | ---- | ---- | ---- | -------- |
-| month | 取得する日付 | YES | <ul><li>yyyy/mmの日付形式 例 2015/05</li><li>yyyy/mm/ddの日付形式 例 2015/05/01 ※ ddは解釈されません</li><li>yyyy-mm-ddの日付形式 例 2015-05-01 ※ ddは解釈されません</li></ul>|
-| campaign_id | キャンペーンID | YES |<ul><li>取得したい対象のキャンペーンIDが入ります。</li><li>キャンペーンIDは「キャンペーン一覧取得」から取得してください。</li></ul>|
-| group_id | グループID | YES |<ul><li>取得したい対象のグループIDが入ります。</li><li>グループIDは「グループ一覧取得」から取得してください。</li></ul>|
+| month | 取得する日付 | NO | <ul><li>yyyy/mmの日付形式 例 2015/05</li><li>yyyy/mm/ddの日付形式 例 2015/05/01 ※ ddは解釈されません</li><li>yyyy-mm-ddの日付形式 例 2015-05-01 ※ ddは解釈されません</li></ul>|
+| campaign_id | キャンペーンID | NO |<ul><li>取得したい対象のキャンペーンIDが入ります。</li><li>キャンペーンIDは「キャンペーン一覧取得」から取得してください。</li></ul>|
+| group_id | グループID | NO |<ul><li>取得したい対象のグループIDが入ります。</li><li>グループIDは「グループ一覧取得」から取得してください。</li></ul>|
 | page | ページ番号(デフォルト: 1) | NO | 10 |
 | per_page | 1ページ当たりの件数(デフォルト: 100) | NO | 50 |
 
