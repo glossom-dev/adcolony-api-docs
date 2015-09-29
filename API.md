@@ -376,31 +376,31 @@ jsonのsampleとデータ型に対する説明です。
     "spend_yen": "15395.12", # 消化金額(円) 小数点第三位以下を四捨五入
     "impressions": 100,      # 広告表示回数 INT型
     "cvvs": 147,             # 動画視聴完了数 INT型
-    "clicks": 1000,          # クリック数 INT型
-    "installs": 100,         # インストール数 INT型
+    "clicks": 85,            # クリック数 INT型
+    "installs": 40,          # インストール数 INT型
     "ctr": "0.85",           # CTR Float型
-    "cvr": "26.85",          # CVR Float型
-    "cpi": "332.88"          # CPI(円) Float型
+    "cvr": "47.06",          # CVR Float型
+    "cpi": "384.88"          # CPI(円) Float型
   },
   "2014-12-30": {
-    "spend_yen": "20000.20",
+    "spend_yen": "10000.20",
     "impressions": 100,
     "cvvs": 147,
-    "clicks": 1000,
-    "installs": 100,
+    "clicks": 85,
+    "installs": 40,
     "ctr": "0.85",
-    "cvr": "26.85",
-    "cpi": "332.88"
+    "cvr": "47.06",
+    "cpi": "250.01"
   },
   "total": {
-    "spend_yen": "35395.32", # 消化金額合算値(円) 小数点第三位以下を四捨五入)
+    "spend_yen": "25395.32", # 消化金額合算値(円) 小数点第三位以下を四捨五入)
     "impressions": 200,
     "cvvs": 294,
-    "clicks": 2000,
-    "installs": 200,
+    "clicks": 170,
+    "installs": 80,
     "ctr": "0.85",
     "cvr": "26.85",
-    "cpi": "332.88"
+    "cpi": "317.44"
   }
 }
 ```
