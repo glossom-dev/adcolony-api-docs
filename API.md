@@ -393,11 +393,11 @@ jsonのsampleとデータ型に対する説明です。
     "cpi": "332.88"
   },
   "total": {
-    "spend_yen": "35395.42", # 消化金額合算値(円) 小数点第三位以下を四捨五入)
-    "impressions": 100,
-    "cvvs": 147,
-    "clicks": 1000,
-    "installs": 100,
+    "spend_yen": "35395.32", # 消化金額合算値(円) 小数点第三位以下を四捨五入)
+    "impressions": 200,
+    "cvvs": 294,
+    "clicks": 2000,
+    "installs": 200,
     "ctr": "0.85",
     "cvr": "26.85",
     "cpi": "332.88"
