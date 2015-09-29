@@ -235,25 +235,25 @@ jsonのsampleとデータ型に対する説明です。
     "cvvs": 147,              # 動画視聴完了数 INT型
     "clicks": 1,              # クリック数 INT型
     "fill_rate": "101.74",    # Fill Rate(%) Float型
-    "ecpm": "55.38"           # eCPM(円) Float型
+    "ecpm": "5443.74"         # eCPM(円) Float型
   },
   "2014-12-30": {
     "earnings_yen": "1370.23",
     "requests": 257,
     "impressions": 264,
     "cvvs": 238,
-    "clicks": 1,
+    "clicks": 32,
     "fill_rate": "102.72",
-    "ecpm": "57.56"
+    "ecpm": "5757.27"
   },
   "total": {
-    "earnings_yen": "630.90", # 収益合算値(円) 小数点第三位以下を四捨五入)
-    "requests": 4616,
-    "impressions": 4710,
-    "cvvs": 4264,
+    "earnings_yen": "2170.46", # 収益合算値(円) 小数点第三位以下を四捨五入)
+    "requests": 429,
+    "impressions": 439,
+    "cvvs": 385,
     "clicks": 33,
-    "fill_rate": "102.04",
-    "ecpm": "147.63"
+    "fill_rate": "102.33",
+    "ecpm": "5637.56"
   }
 }
 ```
