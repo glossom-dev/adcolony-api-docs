@@ -6,12 +6,17 @@ AdColony配信実績取得用 API仕様書
 
 ## 1. API一覧
 
-* [アプリ一覧取得 ※1](#fetch_app)
-* [枠一覧取得 ※1](#fetch_zones)
-* [キャンペーン一覧取得 ※1](#fetch_campaigns)
-* [グループ一覧取得 ※1](#fetch_groups)
-* [メディアレポート取得 ※1](#fetch_zone_report)
-* [キャンペーンレポート取得 ※1](#fetch_campaign_report)
+### メディア系API
+
+- [アプリ一覧取得 ※1](#fetch_app)
+- [枠一覧取得 ※1](#fetch_zones)
+- [メディアレポート取得 ※1](#fetch_zone_report)
+
+### キャンペーン系API
+
+- [キャンペーン一覧取得 ※1](#fetch_campaigns)
+- [グループ一覧取得 ※1](#fetch_groups)
+- [キャンペーンレポート取得 ※1](#fetch_campaign_report)
 
 ※1: ログインが必要なAPI、アカウントについては、2. ログインアカウントをご参照ください
 
